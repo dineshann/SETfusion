@@ -1,0 +1,1516 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <title>SETfusion — Solar Power Electronics, Manufactured in Bengaluru</title>
+    <meta name="description"
+        content="SETfusion designs and manufactures solar pump controllers, inverters, PCUs and power systems from our own facility in Bengaluru. In-house engineering, tender-ready certification, real after-sales support.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Serif+Oriya:wght@400..700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,400,0..1,0" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        paper: '#ffffff',
+                        paper2: '#f9f9fe',
+                        ink: '#000000',
+                        ink2: '#4B5468',
+                        ink3: '#8E96A8',
+                        line: '#E3E7F0',
+                        navy: { DEFAULT: '#F4791A', deep: '#CC5E0A', soft: '#E7ECF9' },
+                        orange: { DEFAULT: '#F4791A', deep: '#CC5E0A', soft: '#FDEADB' },
+                        sky: { DEFAULT: '#1CADEE', deep: '#1181B8', soft: '#E4F5FC' },
+                        lime: { DEFAULT: '#8BC53F', soft: '#EEF7E1' },
+                    },
+                    fontFamily: {
+                        display: ['Noto Serif Oriya', 'serif'],
+                        body: ['Inter', 'sans-serif'],
+                        mono: ['Inter', 'sans-serif'],
+                    },
+                    borderRadius: { '4xl': '2rem' },
+                }
+            }
+        }
+    </script>
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #FAF9F6;
+        }
+
+        .eyebrow {
+            font-family: 'Inter', sans-serif;
+            letter-spacing: .05em;
+            font-weight: 600;
+        }
+
+        /* signature: sunrise arc motif */
+        .sun-arc {
+            position: relative;
+        }
+
+        .sun-arc::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background:
+                radial-gradient(60% 60% at 78% 18%, rgba(244, 121, 26, 0.20) 0%, rgba(244, 121, 26, 0) 68%),
+                radial-gradient(45% 45% at 10% 92%, rgba(18, 44, 107, 0.14) 0%, rgba(18, 44, 107, 0) 70%);
+        }
+
+        .arc-mark {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-shadow {
+            box-shadow: 0 1px 0 0 rgba(14, 21, 38, 0.06);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #FF9A3D 0%, #F4791A 55%, #CC5E0A 100%);
+            color: #ffffff;
+            transition: filter .18s ease, transform .18s ease;
+        }
+
+        .btn-primary:hover {
+            filter: brightness(1.06);
+        }
+
+        .btn-outline {
+            border: 1.5px solid #0E1526;
+            color: #0E1526;
+            transition: background-color .18s ease, color .18s ease;
+        }
+
+        .btn-outline:hover {
+            background: #0E1526;
+            color: #FAF9F6;
+        }
+
+        .btn-outline-light {
+            border: 1.5px solid rgba(250, 249, 246, 0.45);
+            color: #FAF9F6;
+            transition: background-color .18s ease;
+        }
+
+        .btn-outline-light:hover {
+            background: rgba(250, 249, 246, 0.14);
+        }
+
+        .card-soft {
+            box-shadow: 0 1px 2px rgba(14, 21, 38, 0.04), 0 14px 34px -18px rgba(14, 21, 38, 0.26);
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(14px);
+            transition: opacity .6s ease, transform .6s ease;
+        }
+
+        .reveal.in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .num {
+            font-variant-numeric: tabular-nums;
+        }
+
+        ::selection {
+            background: #F4791A;
+            color: #FAF9F6;
+        }
+
+        .img-fallback {
+            display: none;
+        }
+
+        .imgbox.broken .real-img {
+            display: none;
+        }
+
+        .imgbox.broken .img-fallback {
+            display: flex;
+        }
+
+        .filter-pill {
+            transition: background-color .18s ease, color .18s ease, border-color .18s ease;
+        }
+
+        .filter-pill.active {
+            background: #d7650e;
+            color: #FAF9F6;
+            border-color: #d7650e;
+        }
+
+        .calc-pill {
+            transition: background-color .18s ease, color .18s ease, border-color .18s ease;
+        }
+
+        .calc-pill.active {
+            background: #0E1526;
+            color: #FAF9F6;
+            border-color: #0E1526;
+        }
+
+        .calc-pill.active .msi {
+            color: #F4791A;
+        }
+
+        /* ---------- FAQ ACCORDION ---------- */
+        .faq-a {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height .35s ease;
+        }
+
+        .faq-item.open .faq-a {
+            max-height: 260px;
+        }
+
+        .faq-chevron {
+            transition: transform .3s ease;
+        }
+
+        .faq-item.open .faq-chevron {
+            transform: rotate(180deg);
+            color: #F4791A;
+        }
+
+        .gallery-tile {
+            transition: opacity .35s ease, transform .35s ease;
+        }
+
+        .gallery-tile.hide {
+            display: none;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                transition-duration: 0.001ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
+        /* Material Symbols baseline */
+        .msi {
+            font-family: 'Material Symbols Outlined';
+            font-weight: 400;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .msi-fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        /* ---------- HERO SLIDER ---------- */
+        .heroSlider {
+            position: relative;
+            height: 100svh;
+            min-height: 560px;
+            width: 100%;
+            overflow: hidden;
+            background: #0E1526;
+        }
+
+        .hslide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .hslide-media {
+            position: absolute;
+            inset: -6%;
+            overflow: hidden;
+        }
+
+        .hslide-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scale(1.12);
+            will-change: transform;
+        }
+
+        .hslide-scrim {
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(180deg, rgba(10, 14, 26, 0.55) 0%, rgba(10, 14, 26, 0.25) 32%, rgba(10, 14, 26, 0.55) 78%, rgba(10, 14, 26, 0.86) 100%),
+                linear-gradient(90deg, rgba(10, 14, 26, 0.55) 0%, rgba(10, 14, 26, 0.05) 45%, rgba(10, 14, 26, 0.15) 100%);
+        }
+
+        .slider-dot {
+            width: 34px;
+            height: 3px;
+            border-radius: 2px;
+            background: rgba(250, 249, 246, 0.32);
+            position: relative;
+            overflow: hidden;
+            transition: background-color .2s ease;
+        }
+
+        .slider-dot .fill {
+            position: absolute;
+            inset: 0;
+            width: 0%;
+            background: #F4791A;
+        }
+
+        .slider-dot.active {
+            background: rgba(250, 249, 246, 0.32);
+        }
+
+        .slider-arrow {
+            width: 46px;
+            height: 46px;
+            border-radius: 999px;
+            border: 1.5px solid rgba(250, 249, 246, 0.35);
+            color: #FAF9F6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color .2s ease, border-color .2s ease;
+        }
+
+        .slider-arrow:hover {
+            background: rgba(250, 249, 246, 0.14);
+            border-color: rgba(250, 249, 246, 0.6);
+        }
+
+        .scroll-cue {
+            writing-mode: vertical-rl;
+        }
+
+        /* ---------- FLOATING WHATSAPP ---------- */
+        #floatWa {
+            position: fixed;
+            right: 22px;
+            bottom: 22px;
+            z-index: 60;
+            width: 58px;
+            height: 58px;
+            border-radius: 999px;
+            background: #22C55E;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 26px -6px rgba(34, 197, 94, 0.55);
+            transition: transform .18s ease;
+        }
+
+        #floatWa:hover {
+            transform: scale(1.06);
+        }
+
+        #floatWa .ping {
+            position: absolute;
+            inset: 0;
+            border-radius: 999px;
+            background: #22C55E;
+            opacity: .6;
+            animation: waPing 2.2s cubic-bezier(0, 0, 0.2, 1) infinite;
+        }
+
+        @keyframes waPing {
+
+            75%,
+            100% {
+                transform: scale(1.7);
+                opacity: 0;
+            }
+        }
+
+        /* ---------- MOBILE STICKY CTA ---------- */
+        #mobileCta {
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 55;
+        }
+    </style>
+</head>
+
+<body class="font-body text-ink bg-paper antialiased pb-[72px] sm:pb-0">
+
+    <!-- NAVBAR -->
+    <nav id="mainNav" class="fixed top-0 left-0 w-full z-50 bg-white border-b border-line">
+        <div class="max-w-7xl mx-auto px-6 lg:px-10 h-[76px] flex items-center justify-between">
+            <a href="#home" class="flex items-center gap-2.5 shrink-0">
+                <img src="https://demo.amortree.com/SETfusion/logo.avif" alt="SETfusion logo"
+                    class="w-[220px] object-contain" />
+            </a>
+
+            <div class="hidden lg:flex items-center gap-7 text-[15px] font-medium text-ink2">
+                <a href="#home" class="hover:text-ink transition-colors">Home</a>
+                <a href="#products" class="hover:text-ink transition-colors">Products</a>
+                <a href="#calculator" class="hover:text-ink transition-colors">Savings Calculator</a>
+                <a href="about.html" class="hover:text-ink transition-colors">About</a>
+                <a href="gallery.html" class="hover:text-ink transition-colors">Gallery</a>
+                <a href="#contact" class="hover:text-ink transition-colors">Contact</a>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <a href="#subsidy"
+                    class="hidden sm:inline-flex items-center gap-1.5 btn-primary text-sm font-semibold px-5 py-2.5 rounded-full">
+                    Govt. Subsidy
+                </a>
+                <button id="menuBtn" class="lg:hidden text-ink p-2" aria-label="Open menu">
+                    <span class="msi text-[26px]">menu</span>
+                </button>
+            </div>
+        </div>
+        <div id="mobileMenu"
+            class="hidden lg:hidden flex-col gap-1 px-6 pb-5 text-ink2 text-[15px] font-medium bg-paper border-t border-line">
+            <a href="#home" class="block py-3 border-b border-line">Home</a>
+            <a href="#products" class="block py-3 border-b border-line">Products</a>
+            <a href="#calculator" class="block py-3 border-b border-line">Savings Calculator</a>
+            <a href="about.html" class="block py-3 border-b border-line">About</a>
+            <a href="gallery.html" class="block py-3 border-b border-line">Gallery</a>
+            <a href="#contact" class="block py-3">Contact</a>
+        </div>
+    </nav>
+
+    <!-- HERO SLIDER -->
+    <section id="home" class="heroSlider" aria-label="Featured work slider">
+        <div class="hslide" data-slide="0">
+            <div class="hslide-media"><img
+                    src="https://images.unsplash.com/photo-1509391366360-2e959784a276?q=80&w=1800&auto=format&fit=crop"
+                    alt="Rooftop solar panel array powering a home"
+                    onerror="this.parentElement.style.background='linear-gradient(135deg,#12315E,#0E1526)';this.remove()">
+            </div>
+            <div class="hslide-scrim"></div>
+        </div>
+        <div class="hslide" data-slide="1">
+            <div class="hslide-media"><img
+                    src="https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?q=80&w=1800&auto=format&fit=crop"
+                    alt="Aerial view of a large-scale solar field"
+                    onerror="this.parentElement.style.background='linear-gradient(135deg,#3A2410,#0E1526)';this.remove()">
+            </div>
+            <div class="hslide-scrim"></div>
+        </div>
+        <div class="hslide" data-slide="2">
+            <div class="hslide-media"><img
+                    src="https://images.unsplash.com/photo-1698752821919-e9771f0b0bcb?q=80&w=1800&auto=format&fit=crop"
+                    alt="Ground-mounted solar plant with power electronics enclosure"
+                    onerror="this.parentElement.style.background='linear-gradient(135deg,#0F3B4A,#0E1526)';this.remove()">
+            </div>
+            <div class="hslide-scrim"></div>
+        </div>
+
+        <div class="relative z-10 h-full flex flex-col">
+            <div class="flex-1 flex items-center pt-[76px]">
+                <div class="max-w-7xl mx-auto px-6 lg:px-10 w-full">
+                    <div class="max-w-2xl">
+                        <p id="sliderEyebrow" class="eyebrow text-xs text-orange uppercase mb-6 tracking-[0.15em]">Your
+                            Desire. Our Innovations.</p>
+                        <h1 id="sliderHeadline"
+                            class="font-display font-medium text-[38px] sm:text-[52px] lg:text-[64px] leading-[1.05] tracking-tight text-paper">
+                            Solar power electronics, <span class="italic text-orange">engineered</span> and built under
+                            one roof.
+                        </h1>
+                        <p id="sliderSub" class="mt-6 text-[17px] text-paper/80 max-w-lg leading-relaxed">
+                            Manufactured, installed and supported by our own engineers — from a single rooftop to a
+                            300KVA industrial plant.
+                        </p>
+                        <div class="mt-9 flex flex-wrap gap-4">
+                            <a href="https://wa.me/919972779899?text=Hi%20SETfusion%2C%20I%27d%20like%20a%20quote%20for%20a%20solar%20power%20system."
+                                target="_blank" rel="noopener"
+                                class="inline-flex items-center gap-2 btn-primary font-semibold px-7 py-3.5 rounded-full">
+                                Request a Quote
+                                <span class="msi text-[17px]">arrow_forward</span>
+                            </a>
+                            <a href="#subsidy"
+                                class="inline-flex items-center gap-2 btn-outline-light font-semibold px-7 py-3.5 rounded-full">
+                                Check Subsidy Eligibility
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="px-6 lg:px-10 pb-8">
+                <div class="max-w-7xl mx-auto flex items-center justify-between gap-6">
+                    <div class="flex items-center gap-3">
+                        <button id="sliderPrev" class="slider-arrow" aria-label="Previous slide"><span
+                                class="msi text-[20px]">arrow_back</span></button>
+                        <button id="sliderNext" class="slider-arrow" aria-label="Next slide"><span
+                                class="msi text-[20px]">arrow_forward</span></button>
+                    </div>
+                    <div id="sliderDots" class="flex items-center gap-2"></div>
+                    <a href="#home"
+                        class="hidden sm:flex items-center gap-2 text-paper/70 text-xs eyebrow uppercase hover:text-paper transition-colors">
+                        Scroll
+                        <span class="msi text-[16px]">arrow_downward</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUCTS -->
+    <section id="products" class="bg-paper py-24 lg:py-28">
+        <div class="max-w-7xl mx-auto px-6 lg:px-10">
+            <div class="reveal flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-14">
+                <div>
+                    <p class="eyebrow text-xs text-orange-deep uppercase mb-3">Manufactured in‑house</p>
+                    <h2
+                        class="font-display text-[36px] lg:text-[44px] font-medium tracking-tight text-ink leading-none">
+                        Our Products</h2>
+                </div>
+                <a href="#" id="viewAllBtn"
+                    class="inline-flex items-center gap-1.5 text-ink font-semibold text-sm border-b-2 border-orange pb-1 w-fit hover:gap-2.5 transition-all">
+                    View all products
+                    <span class="msi text-[16px]">arrow_forward</span>
+                </a>
+            </div>
+
+            <div id="productGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+
+            <div class="mt-12 text-center">
+                <button id="loadMoreBtn"
+                    class="inline-flex items-center gap-2 btn-outline font-semibold px-7 py-3 rounded-full">
+                    Load more products
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- HERO -->
+    <header id="intro" class="sun-arc relative pt-20 lg:pb-28 pb-16 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-[1.05fr_0.95fr] gap-16 items-center">
+            <div class="relative z-10">
+                <p class="reveal in eyebrow text-xs text-orange-deep uppercase mb-6">Manufactured in Bengaluru, since
+                    2015</p>
+                <h2
+                    class="reveal in font-display font-medium text-[36px] sm:text-[46px] lg:text-[52px] leading-[1.08] tracking-tight text-ink">
+                    Every unit we ship, we <span class="italic text-navy">designed and built</span> ourselves.
+                </h2>
+                <p class="reveal in mt-7 text-[17px] text-ink2 max-w-lg leading-relaxed">
+                    Pump controllers, inverters, PCUs and power systems — engineered, manufactured and installed
+                    in-house, then backed by after-sales support that actually picks up the phone.
+                </p>
+                <div class="reveal in mt-9 flex flex-wrap gap-4">
+                    <a href="https://wa.me/919972779899?text=Hi%20SETfusion%2C%20I%27d%20like%20a%20quote%20for%20a%20solar%20power%20system."
+                        target="_blank" rel="noopener"
+                        class="inline-flex items-center gap-2 btn-primary font-semibold px-7 py-3.5 rounded-full">
+                        Request a Quote
+                        <span class="msi text-[17px]">arrow_forward</span>
+                    </a>
+                    <a href="#subsidy"
+                        class="inline-flex items-center gap-2 btn-outline font-semibold px-7 py-3.5 rounded-full">
+                        Check Subsidy Eligibility
+                    </a>
+                </div>
+                <div
+                    class="reveal in mt-12 flex flex-wrap items-center gap-x-5 gap-y-3 text-ink3 text-xs eyebrow uppercase">
+                    <span>BIS Certified</span><span class="w-1 h-1 rounded-full bg-line"></span>
+                    <span>ISO Certified</span><span class="w-1 h-1 rounded-full bg-line"></span>
+                    <span>MNRE Empanelled</span><span class="w-1 h-1 rounded-full bg-line"></span>
+                    <span>MSME Registered</span>
+                </div>
+            </div>
+
+            <!-- hero visual -->
+            <div class="reveal in relative">
+                <div class="imgbox relative rounded-4xl overflow-hidden card-soft aspect-[5/4]">
+                    <img class="real-img w-full h-full object-cover" loading="lazy"
+                        src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?q=80&w=1200&auto=format&fit=crop"
+                        alt="Close view of solar panels manufactured for rooftop installation"
+                        onerror="this.closest('.imgbox').classList.add('broken')">
+                    <div
+                        class="img-fallback absolute inset-0 items-center justify-center bg-gradient-to-br from-navy-soft to-orange-soft">
+                        <span class="msi text-[96px] text-navy">solar_power</span>
+                    </div>
+                </div>
+                <!-- floating stat card -->
+                <div
+                    class="absolute -bottom-7 -left-6 sm:-left-10 bg-paper card-soft rounded-2xl px-6 py-5 border border-line">
+                    <p class="font-display num text-[30px] font-medium leading-none text-navy">1000+</p>
+                    <p class="mt-1 text-xs text-ink3 eyebrow uppercase tracking-wide">Systems installed</p>
+                </div>
+                <!-- floating call badge -->
+                <a href="tel:+919972779899"
+                    class="absolute -top-5 -right-5 w-16 h-16 rounded-full bg-navy text-paper flex items-center justify-center card-soft hover:bg-navy-deep transition-colors">
+                    <span class="msi msi-fill text-[24px]">call</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ANALYTICS -->
+    <section id="analytics" class="py-14" style="background-color: rgb(186, 85, 7);">
+        <div class="max-w-7xl mx-auto px-6 lg:px-10 grid grid-cols-2 lg:grid-cols-4 gap-5">
+            <div class="reveal text-center lg:text-left lg:border-r lg:border-white/10 lg:pr-5">
+                <p class="font-display num text-[38px] font-medium leading-none text-paper"><span data-count="1000"
+                        data-suffix="+">0</span></p>
+                <p class="mt-2 text-xs text-paper2 eyebrow uppercase tracking-wide">Systems installed</p>
+            </div>
+            <div class="reveal text-center lg:text-left lg:border-r lg:border-white/10 lg:pr-5">
+                <p class="font-display num text-[38px] font-medium leading-none text-paper"><span data-count="11"
+                        data-suffix="+">0</span></p>
+                <p class="mt-2 text-xs text-paper2 eyebrow uppercase tracking-wide">Years manufacturing</p>
+            </div>
+            <div class="reveal text-center lg:text-left lg:border-r lg:border-white/10 lg:pr-5">
+                <p class="font-display num text-[38px] font-medium leading-none text-paper"><span data-count="100"
+                        data-suffix="HP">0</span></p>
+                <p class="mt-2 text-xs text-paper2 eyebrow uppercase tracking-wide">Max pump capacity</p>
+            </div>
+            <div class="reveal text-center lg:text-left">
+                <p class="font-display num text-[38px] font-medium leading-none text-paper"><span data-count="300"
+                        data-suffix="KVA">0</span></p>
+                <p class="mt-2 text-xs text-paper2 eyebrow uppercase tracking-wide">Largest PCU built</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SAVINGS CALCULATOR -->
+    <section id="calculator" class="bg-paper py-24 lg:py-28 border-b border-line">
+        <div class="max-w-7xl mx-auto px-6 lg:px-10">
+            <div class="reveal text-center max-w-2xl mx-auto mb-14">
+                <p class="eyebrow text-xs text-orange-deep uppercase mb-3">Know before you enquire</p>
+                <h2 class="font-display text-[34px] lg:text-[42px] font-medium tracking-tight text-ink leading-none">
+                    Estimate Your Solar Savings</h2>
+                <p class="mt-4 text-ink2 text-[15px] leading-relaxed">Tell us your average monthly electricity bill
+                    and where you'll use it — get an instant estimate of system size, payback period and 25‑year
+                    savings.</p>
+            </div>
+
+            <div
+                class="reveal grid lg:grid-cols-[1fr_1.1fr] gap-0 rounded-4xl overflow-hidden card-soft border border-line">
+                <!-- Inputs -->
+                <div class="bg-paper2 p-8 lg:p-10">
+                    <p class="eyebrow text-xs text-ink3 uppercase mb-3">1. Where is this for?</p>
+                    <div id="calcUseCase" class="grid grid-cols-3 gap-2 mb-9">
+                        <button type="button" data-mult="1" data-label="Home / Residential"
+                            class="calc-pill active flex flex-col items-center gap-1.5 rounded-2xl border border-line py-4 text-xs font-semibold text-ink2">
+                            <span class="msi text-[22px]">home</span> Home
+                        </button>
+                        <button type="button" data-mult="1.35" data-label="Farm / Pump"
+                            class="calc-pill flex flex-col items-center gap-1.5 rounded-2xl border border-line py-4 text-xs font-semibold text-ink2">
+                            <span class="msi text-[22px]">agriculture</span> Farm
+                        </button>
+                        <button type="button" data-mult="0.85" data-label="Commercial / Industrial"
+                            class="calc-pill flex flex-col items-center gap-1.5 rounded-2xl border border-line py-4 text-xs font-semibold text-ink2">
+                            <span class="msi text-[22px]">factory</span> Business
+                        </button>
+                    </div>
+
+                    <p class="eyebrow text-xs text-ink3 uppercase mb-3">2. Average monthly electricity bill</p>
+                    <p class="font-display text-[40px] font-medium text-navy leading-none mb-4">₹<span
+                            id="calcBillLabel">6,000</span></p>
+                    <input id="calcBill" type="range" min="1000" max="50000" step="500" value="6000"
+                        class="w-full h-2 rounded-full appearance-none bg-line accent-[#F4791A] cursor-pointer">
+                    <div class="flex justify-between text-[11px] text-ink3 mt-2 eyebrow uppercase">
+                        <span>₹1,000</span><span>₹50,000+</span>
+                    </div>
+
+                    <p class="mt-9 text-xs text-ink3 leading-relaxed">Estimates use average Bengaluru tariffs and
+                        irradiation data, and assume typical grid-tie sizing. Your exact quote depends on a free site
+                        survey, roof/land orientation and shading.</p>
+                </div>
+
+                <!-- Output -->
+                <div class="relative p-8 lg:p-10 text-paper flex flex-col justify-center"
+                    style="background: linear-gradient(160deg,#12315E 0%,#0E1526 100%);">
+                    <div class="absolute -top-16 -right-16 w-56 h-56 rounded-full bg-orange/10 blur-3xl"></div>
+                    <p class="eyebrow text-xs text-orange uppercase mb-6 relative">Your estimate for <span
+                            id="calcUseLabel">Home / Residential</span></p>
+
+                    <div class="relative grid grid-cols-2 gap-6 mb-8">
+                        <div>
+                            <p class="font-display num text-[32px] font-medium leading-none"><span
+                                    id="calcSize">3.5</span> kW</p>
+                            <p class="mt-1.5 text-[11px] text-paper/60 eyebrow uppercase tracking-wide">Recommended
+                                system</p>
+                        </div>
+                        <div>
+                            <p class="font-display num text-[32px] font-medium leading-none text-orange">₹<span
+                                    id="calcMonthly">5,400</span></p>
+                            <p class="mt-1.5 text-[11px] text-paper/60 eyebrow uppercase tracking-wide">Est. monthly
+                                savings</p>
+                        </div>
+                        <div>
+                            <p class="font-display num text-[32px] font-medium leading-none"><span
+                                    id="calcPayback">4.2</span> yrs</p>
+                            <p class="mt-1.5 text-[11px] text-paper/60 eyebrow uppercase tracking-wide">Est. payback
+                                period</p>
+                        </div>
+                        <div>
+                            <p class="font-display num text-[32px] font-medium leading-none">₹<span
+                                    id="calc25yr">16.2L</span></p>
+                            <p class="mt-1.5 text-[11px] text-paper/60 eyebrow uppercase tracking-wide">25‑year savings*
+                            </p>
+                        </div>
+                    </div>
+
+                    <a id="calcWaBtn" href="#" target="_blank" rel="noopener"
+                        class="relative inline-flex items-center justify-center gap-2 btn-primary font-semibold px-7 py-3.5 rounded-full w-fit">
+                        Get My Exact Quote on WhatsApp
+                        <span class="msi text-[17px]">arrow_forward</span>
+                    </a>
+                    <p class="relative mt-4 text-[11px] text-paper/50 leading-relaxed">*Indicative only, before Surya
+                        Ghar / MNRE subsidy where applicable. Final numbers confirmed after a free site survey.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="bg-paper2 py-24 lg:py-28">
+        <div class="max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-2 gap-16 items-center">
+            <div class="reveal relative">
+                <div class="imgbox relative rounded-4xl overflow-hidden card-soft aspect-[4/5]">
+                    <img class="real-img w-full h-full object-cover" loading="lazy"
+                        src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?q=80&w=1000&auto=format&fit=crop"
+                        alt="Close view of solar panels manufactured for a rooftop installation"
+                        onerror="this.closest('.imgbox').classList.add('broken')">
+                    <div
+                        class="img-fallback absolute inset-0 items-center justify-center bg-gradient-to-br from-orange-soft to-navy-soft">
+                        <span class="msi text-[88px] text-navy">grid_view</span>
+                    </div>
+                </div>
+                <div
+                    class="absolute -bottom-6 -right-4 sm:-right-8 bg-ink card-soft rounded-2xl px-6 py-5 flex items-center gap-4">
+                    <p class="font-display text-[34px] font-medium leading-none text-orange">13+</p>
+                    <p class="text-paper/80 text-xs leading-snug max-w-[110px]">Years in sustainable energy
+                        manufacturing</p>
+                </div>
+            </div>
+
+            <div>
+                <p class="reveal eyebrow text-xs text-orange-deep uppercase mb-3">About SETfusion</p>
+                <h2
+                    class="reveal font-display text-[32px] lg:text-[40px] font-medium tracking-tight leading-[1.1] text-ink">
+                    Built by engineers who install what they design.
+                </h2>
+                <p class="reveal mt-6 text-ink2 leading-relaxed">
+                    Since 2015, SETfusion has manufactured solar power electronics from our own facility in Bengaluru —
+                    not sourced, assembled and re‑labelled. That's how we back every controller, inverter and PCU with
+                    real after‑sales support, and how we keep pricing honest without cutting engineering corners. Our
+                    systems now run across 1000+ residential, agricultural, industrial and government sites, and we're
+                    MNRE empanelled and BIS / ISO certified for tender‑ready procurement.
+                </p>
+
+                <div class="reveal mt-10 grid sm:grid-cols-2 gap-x-6 gap-y-7">
+                    <div class="flex gap-3.5">
+                        <div
+                            class="shrink-0 w-10 h-10 rounded-full flex items-center justify-center bg-orange-soft text-orange-deep">
+                            <span class="msi text-[22px]">precision_manufacturing</span>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-ink text-sm">In‑house manufacturing</p>
+                            <p class="text-sm text-ink3 mt-1">Designed and built at our own facility.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-3.5">
+                        <div
+                            class="shrink-0 w-10 h-10 rounded-full flex items-center justify-center bg-orange-soft text-orange-deep">
+                            <span class="msi text-[22px]">support_agent</span>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-ink text-sm">Dedicated after‑sales</p>
+                            <p class="text-sm text-ink3 mt-1">Support that outlasts the install date.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-3.5">
+                        <div
+                            class="shrink-0 w-10 h-10 rounded-full flex items-center justify-center bg-orange-soft text-orange-deep">
+                            <span class="msi text-[22px]">design_services</span>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-ink text-sm">Custom engineering</p>
+                            <p class="text-sm text-ink3 mt-1">Sized to load, site and budget.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-3.5">
+                        <div
+                            class="shrink-0 w-10 h-10 rounded-full flex items-center justify-center bg-orange-soft text-orange-deep">
+                            <span class="msi text-[22px]">payments</span>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-ink text-sm">Transparent pricing</p>
+                            <p class="text-sm text-ink3 mt-1">Factory‑direct cost, no markup.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROCESS -->
+    <section id="process" class="bg-paper py-24 lg:py-28">
+        <div class="max-w-7xl mx-auto px-6 lg:px-10">
+            <div class="reveal text-center max-w-xl mx-auto mb-16">
+                <p class="eyebrow text-xs text-orange-deep uppercase mb-3">From enquiry to commissioning</p>
+                <h2 class="font-display text-[34px] lg:text-[42px] font-medium tracking-tight text-ink leading-none">
+                    How a SETfusion Project Runs</h2>
+            </div>
+
+            <div class="relative grid sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-6">
+                <div class="hidden lg:block absolute top-6 left-[1%] right-[15%] h-px bg-line"></div>
+
+                <div class="reveal relative">
+                    <div
+                        class="relative z-10 w-12 h-12 rounded-full bg-ink text-paper flex items-center justify-center font-display text-lg mb-5">
+                        01</div>
+                    <p class="font-semibold text-ink text-sm mb-1.5">Enquiry &amp; site details</p>
+                    <p class="text-sm text-ink3 leading-relaxed">Share your load or bill on WhatsApp or call — we ask a
+                        few questions about site and usage.</p>
+                </div>
+                <div class="reveal relative">
+                    <div
+                        class="relative z-10 w-12 h-12 rounded-full bg-ink text-paper flex items-center justify-center font-display text-lg mb-5">
+                        02</div>
+                    <p class="font-semibold text-ink text-sm mb-1.5">Free site survey &amp; sizing</p>
+                    <p class="text-sm text-ink3 leading-relaxed">Our engineers assess roof/land, shading and load
+                        profile to size the right system — no over-selling.</p>
+                </div>
+                <div class="reveal relative">
+                    <div
+                        class="relative z-10 w-12 h-12 rounded-full bg-ink text-paper flex items-center justify-center font-display text-lg mb-5">
+                        03</div>
+                    <p class="font-semibold text-ink text-sm mb-1.5">In‑house manufacturing</p>
+                    <p class="text-sm text-ink3 leading-relaxed">Your controller, inverter or PCU is built to spec at
+                        our Bengaluru facility — not sourced off a shelf.</p>
+                </div>
+                <div class="reveal relative">
+                    <div
+                        class="relative z-10 w-12 h-12 rounded-full bg-ink text-paper flex items-center justify-center font-display text-lg mb-5">
+                        04</div>
+                    <p class="font-semibold text-ink text-sm mb-1.5">Install &amp; commission</p>
+                    <p class="text-sm text-ink3 leading-relaxed">Our own installation team handles setup, testing and
+                        handover — typically within 1–3 weeks.</p>
+                </div>
+                <div class="reveal relative">
+                    <div
+                        class="relative z-10 w-12 h-12 rounded-full bg-orange text-paper flex items-center justify-center font-display text-lg mb-5">
+                        05</div>
+                    <p class="font-semibold text-ink text-sm mb-1.5">After‑sales support</p>
+                    <p class="text-sm text-ink3 leading-relaxed">Ongoing service, warranty support and monitoring —
+                        the relationship doesn't end at install.</p>
+                </div>
+            </div>
+
+            <div class="reveal mt-14 text-center">
+                <a href="https://wa.me/919972779899?text=Hi%20SETfusion%2C%20I%27d%20like%20to%20start%20with%20a%20free%20site%20survey."
+                    target="_blank" rel="noopener"
+                    class="inline-flex items-center gap-2 btn-outline font-semibold px-7 py-3.5 rounded-full">
+                    Start With a Free Site Survey
+                    <span class="msi text-[17px]">arrow_forward</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHO WE WORK WITH -->
+    <section class="bg-paper py-20 border-t border-line">
+        <div class="max-w-7xl mx-auto px-6 lg:px-10">
+            <div class="reveal text-center mb-12">
+                <p class="eyebrow text-xs text-orange-deep uppercase mb-3">Trusted across sectors</p>
+                <h2 class="font-display text-[28px] lg:text-[34px] font-medium tracking-tight text-ink">Who we work
+                    with</h2>
+            </div>
+
+            <div class="reveal grid grid-cols-2 sm:grid-cols-3 gap-5 mb-12">
+                <div
+                    class="group flex items-center justify-center gap-3 rounded-2xl border border-line px-6 py-7 card-soft hover:border-orange/30 transition-colors">
+                    <img src="ITC-Logo.png" alt="">
+                </div>
+                <div
+                    class="group flex items-center justify-center gap-3 rounded-2xl border border-line bg-ink px-6 py-7 card-soft hover:border-navy/30 transition-colors">
+                    <img src="vaishnavi_logo.webp" alt="Vishnavi Group logo"
+                        class="w-full h-full object-contain" />
+                </div>
+                <div class="group flex items-center justify-center gap-3 rounded-2xl border border-line px-6 py-7 card-soft hover:border-sky/30 transition-colors"
+                    style="background-color: #ffffff">
+                    <img src="ecosoch-logo.png" alt="">
+                </div>
+            </div>
+
+            <div class="reveal flex flex-wrap justify-center gap-3">
+                <span class="eyebrow text-xs uppercase rounded-full border border-line px-4 py-2 text-ink3">Government
+                    Tenders</span>
+                <span class="eyebrow text-xs uppercase rounded-full border border-line px-4 py-2 text-ink3">Housing
+                    Societies</span>
+                <span class="eyebrow text-xs uppercase rounded-full border border-line px-4 py-2 text-ink3">Agricultural
+                    Cooperatives</span>
+                <span class="eyebrow text-xs uppercase rounded-full border border-line px-4 py-2 text-ink3">Industrial
+                    Facilities</span>
+                <span class="eyebrow text-xs uppercase rounded-full border border-line px-4 py-2 text-ink3">Independent
+                    Homes</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section id="gallery" class="bg-paper2 py-24 lg:py-28">
+        <div class="max-w-7xl mx-auto px-6 lg:px-10">
+            <div class="reveal flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-10">
+                <div>
+                    <p class="eyebrow text-xs text-orange-deep uppercase mb-3">Field‑tested</p>
+                    <h2
+                        class="font-display text-[36px] lg:text-[44px] font-medium tracking-tight text-ink leading-none">
+                        Explore Recent Work</h2>
+                </div>
+                <div id="galleryFilters" class="reveal flex flex-wrap gap-2.5"></div>
+            </div>
+
+
+            <div id="galleryGrid" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5"></div>
+
+            <div class="mt-12 text-center">
+                <a href="gallery.html"
+                    class="inline-flex items-center gap-2 btn-outline font-semibold px-7 py-3.5 rounded-full">
+                    Show more in Gallery
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="bg-paper py-24 lg:py-28">
+        <div class="max-w-7xl mx-auto px-6 lg:px-10">
+            <p class="reveal eyebrow text-xs text-orange-deep uppercase tracking-[0.2em] text-center mb-3">What clients
+                say</p>
+            <h2
+                class="reveal font-display text-[30px] lg:text-[38px] font-medium text-ink tracking-tight text-center mb-14">
+                Words from sites we've powered</h2>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="reveal card-soft bg-paper2 rounded-3xl p-7 border border-line">
+                    <div class="flex gap-0.5 text-orange mb-4">★★★★★</div>
+                    <p class="text-ink2 text-sm leading-relaxed">The pump controller they sized for our farm has run
+                        through three summers without a single service call. They got the load right the first time.</p>
+                    <div class="mt-6 flex items-center gap-3">
+                        <div
+                            class="w-9 h-9 rounded-full bg-navy-soft flex items-center justify-center text-navy font-display font-medium text-sm">
+                            F</div>
+                        <div>
+                            <p class="text-sm font-semibold text-ink">Facility Owner</p>
+                            <p class="text-xs text-ink3">Agricultural installation</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="reveal card-soft bg-paper2 rounded-3xl p-7 border border-line">
+                    <div class="flex gap-0.5 text-orange mb-4">★★★★★</div>
+                    <p class="text-ink2 text-sm leading-relaxed">SETfusion handled our BIS and MNRE documentation for a
+                        government tender end‑to‑end. That alone saved us weeks of back and forth.</p>
+                    <div class="mt-6 flex items-center gap-3">
+                        <div
+                            class="w-9 h-9 rounded-full bg-orange-soft flex items-center justify-center text-orange-deep font-display font-medium text-sm">
+                            P</div>
+                        <div>
+                            <p class="text-sm font-semibold text-ink">Procurement Lead</p>
+                            <p class="text-xs text-ink3">Housing society project</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="reveal card-soft bg-paper2 rounded-3xl p-7 border border-line">
+                    <div class="flex gap-0.5 text-orange mb-4">★★★★★</div>
+                    <p class="text-ink2 text-sm leading-relaxed">Custom hybrid inverter for an uneven industrial load,
+                        priced fairly and installed inside a week — with support that actually picks up the phone.</p>
+                    <div class="mt-6 flex items-center gap-3">
+                        <div
+                            class="w-9 h-9 rounded-full bg-sky-soft flex items-center justify-center text-sky-deep font-display font-medium text-sm">
+                            M</div>
+                        <div>
+                            <p class="text-sm font-semibold text-ink">Plant Manager</p>
+                            <p class="text-xs text-ink3">Manufacturing facility</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="bg-paper2 py-24 lg:py-28">
+        <div class="max-w-4xl mx-auto px-6 lg:px-10">
+            <div class="reveal text-center mb-14">
+                <p class="eyebrow text-xs text-orange-deep uppercase mb-3">Before you ask</p>
+                <h2 class="font-display text-[32px] lg:text-[40px] font-medium tracking-tight text-ink leading-none">
+                    Common Questions</h2>
+            </div>
+
+            <div id="faqList" class="space-y-3">
+                <div class="faq-item reveal rounded-2xl border border-line bg-paper overflow-hidden">
+                    <button type="button"
+                        class="faq-q w-full flex items-center justify-between gap-4 text-left px-6 py-5">
+                        <span class="font-semibold text-ink text-[15px]">Am I eligible for the government solar
+                            subsidy?</span>
+                        <span class="msi faq-chevron text-ink3 shrink-0">expand_more</span>
+                    </button>
+                    <div class="faq-a px-6 text-sm text-ink2 leading-relaxed">
+                        <p class="pb-5">Most residential rooftop systems up to 3kW qualify for the central Surya Ghar
+                            subsidy, and we handle the MNRE documentation as part of the project. Eligibility depends on
+                            your sanctioned load and DISCOM — we'll confirm the exact amount during your free site
+                            survey.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item reveal rounded-2xl border border-line bg-paper overflow-hidden">
+                    <button type="button"
+                        class="faq-q w-full flex items-center justify-between gap-4 text-left px-6 py-5">
+                        <span class="font-semibold text-ink text-[15px]">How long does installation actually
+                            take?</span>
+                        <span class="msi faq-chevron text-ink3 shrink-0">expand_more</span>
+                    </button>
+                    <div class="faq-a px-6 text-sm text-ink2 leading-relaxed">
+                        <p class="pb-5">Residential and farm systems are typically installed and commissioned within
+                            1–3 weeks of the site survey, once the components are manufactured. Larger commercial and
+                            government tender projects are scoped with a project timeline upfront.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item reveal rounded-2xl border border-line bg-paper overflow-hidden">
+                    <button type="button"
+                        class="faq-q w-full flex items-center justify-between gap-4 text-left px-6 py-5">
+                        <span class="font-semibold text-ink text-[15px]">What warranty and after-sales support do you
+                            offer?</span>
+                        <span class="msi faq-chevron text-ink3 shrink-0">expand_more</span>
+                    </button>
+                    <div class="faq-a px-6 text-sm text-ink2 leading-relaxed">
+                        <p class="pb-5">Because we manufacture the electronics ourselves, we stand behind them directly
+                            rather than routing you to a third-party brand. Warranty terms vary by product — we'll spell
+                            out exact coverage and service response times in your quote.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item reveal rounded-2xl border border-line bg-paper overflow-hidden">
+                    <button type="button"
+                        class="faq-q w-full flex items-center justify-between gap-4 text-left px-6 py-5">
+                        <span class="font-semibold text-ink text-[15px]">Can you handle documentation for government
+                            tenders and housing societies?</span>
+                        <span class="msi faq-chevron text-ink3 shrink-0">expand_more</span>
+                    </button>
+                    <div class="faq-a px-6 text-sm text-ink2 leading-relaxed">
+                        <p class="pb-5">Yes — we're BIS certified, ISO certified and MNRE empanelled, and we prepare
+                            tender-ready documentation as part of the project for government, housing society and
+                            institutional procurement.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item reveal rounded-2xl border border-line bg-paper overflow-hidden">
+                    <button type="button"
+                        class="faq-q w-full flex items-center justify-between gap-4 text-left px-6 py-5">
+                        <span class="font-semibold text-ink text-[15px]">Which areas do you service?</span>
+                        <span class="msi faq-chevron text-ink3 shrink-0">expand_more</span>
+                    </button>
+                    <div class="faq-a px-6 text-sm text-ink2 leading-relaxed">
+                        <p class="pb-5">We're based in Yeshwanthpur / Jalahalli, Bengaluru, and actively serve
+                            residential, agricultural, industrial and government sites across Bengaluru and the
+                            surrounding region. Message us your location on WhatsApp and we'll confirm coverage.</p>
+                    </div>
+                </div>
+            </div>
+
+            <p class="reveal text-center text-sm text-ink3 mt-10">
+                Still have a question?
+                <a href="https://wa.me/919972779899" target="_blank" rel="noopener"
+                    class="text-orange-deep font-semibold hover:underline">Ask us on WhatsApp</a>
+            </p>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section id="subsidy" class="relative py-24 overflow-hidden" style="background-color: rgb(186, 85, 7);">
+        <div class="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-orange/10 blur-3xl"></div>
+        <div class="absolute -bottom-24 -left-24 w-96 h-96 rounded-full bg-sky/10 blur-3xl"></div>
+        <div class="relative max-w-4xl mx-auto px-6 text-center">
+            <h2
+                class="reveal font-display text-[32px] lg:text-[46px] font-medium text-paper tracking-tight leading-[1.1]">
+                Ready to cut your power bill and go tender‑ready?
+            </h2>
+            <p class="reveal mt-5 text-paper/70 max-w-xl mx-auto">Talk to our engineering team about sizing, subsidy
+                eligibility under Surya Ghar, and a quote built for your load — not a template.</p>
+            <div class="reveal mt-9 flex flex-wrap justify-center gap-4">
+                <a href="https://wa.me/919972779899?text=Hi%20SETfusion%2C%20I%27d%20like%20a%20quote%20for%20a%20solar%20power%20system."
+                    target="_blank" rel="noopener"
+                    class="inline-flex items-center gap-2 btn-primary font-semibold px-7 py-3.5 rounded-full">Request a
+                    Quote</a>
+                <a href="https://wa.me/919972779899" target="_blank" rel="noopener"
+                    class="inline-flex items-center gap-2 btn-outline-light font-semibold px-7 py-3.5 rounded-full">
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3.1.8.8-3-.2-.3a8.2 8.2 0 1 1 7 3.9Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.7.8-.8 1-.2.2-.3.2-.5.1-.2-.1-1-.4-2-1.2-.7-.6-1.2-1.4-1.4-1.6-.1-.2 0-.4.1-.5.1-.1.2-.3.4-.4.1-.2.2-.3.3-.4.1-.2 0-.4 0-.5 0-.1-.6-1.5-.9-2-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.2-.9.9-.9 2.2s1 2.6 1.1 2.7c.1.2 2 3 4.7 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.5-.6 1.8-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z" />
+                    </svg>
+                    WhatsApp Us
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="contact" class="bg-ink pt-20 pb-8">
+        <div class="max-w-7xl mx-auto px-6 lg:px-10 grid md:grid-cols-4 gap-12">
+            <div class="md:col-span-1">
+                <div class="flex items-center gap-2.5 mb-4">
+                    <span class="font-display font-medium text-paper text-xl">SET<span
+                            class="italic text-orange">fusion</span></span>
+                </div>
+                <p class="text-ink3 text-sm leading-relaxed">Your Desire. Our Innovations.<br>Solar power electronics,
+                    manufactured and installed in Bengaluru since 2015.</p>
+            </div>
+
+            <div>
+                <p class="text-paper font-semibold text-sm mb-4">Company</p>
+                <ul class="space-y-2.5 text-sm text-ink3">
+                    <li><a href="#about" class="hover:text-paper transition">About Us</a></li>
+                    <li><a href="#products" class="hover:text-paper transition">Products</a></li>
+                    <li><a href="gallery.html" class="hover:text-paper transition">Gallery</a></li>
+                    <li><a href="#subsidy" class="hover:text-paper transition">Surya Ghar / Subsidy</a></li>
+                    <li><a href="#" class="hover:text-paper transition">Certifications</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <p class="text-paper font-semibold text-sm mb-4">Products</p>
+                <ul class="space-y-2.5 text-sm text-ink3">
+                    <li>Solar Pump Controllers</li>
+                    <li>Solar PCUs &amp; Inverters</li>
+                    <li>Solar VFDs</li>
+                    <li>LiFePO4 Battery Packs</li>
+                    <li>Solar Rooftop Systems</li>
+                </ul>
+            </div>
+
+            <div>
+                <p class="text-paper font-semibold text-sm mb-4">Contact</p>
+                <ul class="space-y-2.5 text-sm text-ink3">
+                    <li>#9, 1st Floor, RC Pura road, Behind BEL Colony, Doddabommasandra, Bangalore, Karnataka, India - 560097.</li>
+                    <li><a href="tel:+919972779899" class="hover:text-paper transition">+91 99727 79899</a></li>
+                    <!-- <li><a href="tel:+919590688999" class="hover:text-paper transition">+91 95906 88999</a></li> -->
+                    <li><a href="mailto:info@setfusion.in" class="hover:text-paper transition">info@setfusion.in</a></li>
+                    <!-- <li><a href="mailto:sales@setfusion.in" class="hover:text-paper transition">sales@setfusion.in</a></li> -->
+                </ul>
+            </div>
+        </div>
+
+        <div
+            class="max-w-7xl mx-auto px-6 lg:px-10 mt-14 pt-6 border-t border-white/10 flex flex-col sm:flex-row justify-between gap-4 text-xs text-ink3">
+            <p>© 2026 SETfusion. All rights reserved. Crafted with <span class="text-red-500">♥</span> by <a href="http://amortree.com/"
+                        class="hover:text-white">amortree Tech</a> & <a href="https://www.eonstrategy.in/"
+                        class="hover:text-white">eon</a></p>
+            <p class="eyebrow">BIS · ISO · MNRE Empanelled · MSME Registered</p>
+        </div>
+    </footer>
+
+    <!-- FLOATING WHATSAPP -->
+    <a id="floatWa"
+        href="https://wa.me/919972779899?text=Hi%20SETfusion%2C%20I%27d%20like%20a%20quote%20for%20a%20solar%20power%20system."
+        target="_blank" rel="noopener" aria-label="Chat with SETfusion on WhatsApp">
+        <span class="ping"></span>
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" class="relative">
+            <path
+                d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3.1.8.8-3-.2-.3a8.2 8.2 0 1 1 7 3.9Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.7.8-.8 1-.2.2-.3.2-.5.1-.2-.1-1-.4-2-1.2-.7-.6-1.2-1.4-1.4-1.6-.1-.2 0-.4.1-.5.1-.1.2-.3.4-.4.1-.2.2-.3.3-.4.1-.2 0-.4 0-.5 0-.1-.6-1.5-.9-2-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.2-.9.9-.9 2.2s1 2.6 1.1 2.7c.1.2 2 3 4.7 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.5-.6 1.8-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z" />
+        </svg>
+    </a>
+
+    <!-- MOBILE STICKY CTA -->
+    <div id="mobileCta" class="sm:hidden flex border-t border-line bg-paper/95 backdrop-blur px-4 py-3 gap-3">
+        <a href="tel:+919972779899"
+            class="flex-1 inline-flex items-center justify-center gap-1.5 btn-outline font-semibold text-sm py-3 rounded-full">
+            <span class="msi text-[18px]">call</span> Call
+        </a>
+        <a href="https://wa.me/919972779899?text=Hi%20SETfusion%2C%20I%27d%20like%20a%20quote%20for%20a%20solar%20power%20system."
+            target="_blank" rel="noopener"
+            class="flex-1 inline-flex items-center justify-center gap-1.5 btn-primary font-semibold text-sm py-3 rounded-full">
+            Request a Quote
+        </a>
+    </div>
+
+    <script>
+        // ---------- PRODUCT DATA ----------
+        // Add your own image for each product below (img field). Recommended: /mnt local path or a hosted URL.
+        const products = [
+            { code: "PSC", name: "Solar Water Pump Controllers", spec: "0.5 HP – 100 HP · MPPT-based", tone: "navy", icon: "water_pump", img: "images/products/psc-pump-controller.jpg" },
+            { code: "PCU", name: "Solar PCUs", spec: "600VA – 300KVA power range", tone: "orange", icon: "developer_board", img: "images/products/pcu-power-conditioning-unit.jpg" },
+            { code: "HYB", name: "Solar MPPT Hybrid Inverters", spec: "Grid-tie with battery backup", tone: "sky", icon: "swap_calls", img: "images/products/hyb-hybrid-inverter.jpg" },
+            { code: "INV", name: "On-Grid / Off-Grid Inverters", spec: "Configurable for any site", tone: "navy", icon: "hub", img: "images/products/inv-on-off-grid-inverter.jpg" },
+            { code: "VFD", name: "Solar VFDs", spec: "Variable frequency drives for pumps", tone: "orange", icon: "speed", img: "images/products/vfd-variable-frequency-drive.jpg" },
+            { code: "RTS", name: "Solar Rooftop Systems", spec: "Residential & commercial rooftops", tone: "sky", icon: "solar_power", img: "images/products/rts-rooftop-system.jpg" },
+            { code: "BAT", name: "LiFePO4 Battery Packs", spec: "Long-cycle, high-density storage", tone: "navy", icon: "battery_charging_full", img: "images/products/bat-lifepo4-battery-pack.jpg" },
+            { code: "SSL", name: "Solar Street Lights", spec: "Standalone, all-night operation", tone: "orange", icon: "light_mode", img: "images/products/ssl-street-light.jpg" },
+            { code: "MOD", name: "Solar Modules", spec: "Mono-PERC panels, multiple wattages", tone: "sky", icon: "grid_view", img: "images/products/mod-solar-module.jpg" },
+            { code: "VS", name: "Voltage Stabilizers", spec: "Protects sensitive load equipment", tone: "navy", icon: "bolt", img: "images/products/vs-voltage-stabilizer.jpg" },
+            { code: "UPS", name: "UPS Systems", spec: "Line-interactive backup power", tone: "orange", icon: "power", img: "images/products/ups-system.jpg" },
+            { code: "CUS", name: "Custom Solar Solutions", spec: "Engineered to your load profile", tone: "sky", icon: "tune", img: "images/products/cus-custom-solar-solution.jpg" },
+        ];
+
+        const tones = {
+            navy: { bg: "bg-navy-soft", text: "text-navy", grad: "from-navy-soft to-paper2" },
+            orange: { bg: "bg-orange-soft", text: "text-orange-deep", grad: "from-orange-soft to-paper2" },
+            sky: { bg: "bg-sky-soft", text: "text-sky-deep", grad: "from-sky-soft to-paper2" },
+        };
+
+        function productCard(p, i) {
+            const waText = encodeURIComponent(`Hi SETfusion, I'd like a quote for ${p.name}.`);
+            const t = tones[p.tone];
+            return `
+    <div class="reveal in group rounded-3xl border border-line bg-paper overflow-hidden card-soft hover:-translate-y-1 transition-transform duration-300">
+      <div class="imgbox relative h-40 overflow-hidden">
+        <img class="real-img w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" src="${p.img}" alt="${p.name}" onerror="this.closest('.imgbox').classList.add('broken')">
+        <div class="img-fallback absolute inset-0 items-center justify-center bg-gradient-to-br ${t.grad}">
+          <span class="msi text-[42px] ${t.text}">${p.icon}</span>
+        </div>
+        <div class="absolute inset-0 bg-gradient-to-t from-ink/60 via-ink/5 to-transparent"></div>
+        <span class="absolute top-3.5 left-3.5 w-9 h-9 rounded-full ${t.bg} ${t.text} flex items-center justify-center"><span class="msi text-[18px]">${p.icon}</span></span>
+        <span class="absolute top-3.5 right-3.5 eyebrow text-[10px] text-paper/90 bg-ink/35 backdrop-blur px-2 py-1 rounded-full">#${p.code}</span>
+      </div>
+      <div class="p-6">
+        <h3 class="font-display font-medium text-ink text-lg leading-snug">${p.name}</h3>
+        <p class="text-sm text-ink3">${p.spec}</p>
+        <a href="https://wa.me/919972779899?text=${waText}" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 mt-3 text-sm font-semibold text-orange-deep group-hover:gap-2.5 transition-all">
+          Enquire on WhatsApp
+          <span class="msi text-[15px]">arrow_forward</span>
+        </a>
+      </div>
+    </div>`;
+        }
+
+        const grid = document.getElementById('productGrid');
+        let shown = 6;
+        function renderProducts() {
+            grid.innerHTML = products.slice(0, shown).map(productCard).join('');
+            observeReveals();
+        }
+        renderProducts();
+        document.getElementById('loadMoreBtn').addEventListener('click', () => {
+            shown = shown >= products.length ? 6 : products.length;
+            renderProducts();
+            document.getElementById('loadMoreBtn').textContent = shown >= products.length ? 'Show fewer' : 'Load more products';
+        });
+        document.getElementById('viewAllBtn').addEventListener('click', (e) => {
+            e.preventDefault();
+            shown = products.length;
+            renderProducts();
+            document.getElementById('loadMoreBtn').textContent = 'Show fewer';
+        });
+
+        // ---------- GALLERY (homepage preview, 12 items) ----------
+        // Add your own image for each gallery item below (img field).
+        const galleryItems = [
+            { cat: "Commercial", title: "300KVA PCU — Manufacturing Plant", tone: "orange", icon: "factory", img: "images/gallery/01-commercial-300kva-pcu.jpg" },
+            { cat: "Residential", title: "10kW Hybrid System — Independent Home", tone: "sky", icon: "home", img: "images/gallery/02-residential-10kw-hybrid.jpg" },
+            { cat: "Industrial", title: "40HP Pump Controller — Agri Site", tone: "navy", icon: "water_pump", img: "images/gallery/03-industrial-40hp-pump-controller.jpg" },
+            { cat: "Commercial", title: "15kW Rooftop — Office Complex", tone: "orange", icon: "apartment", img: "images/gallery/04-commercial-15kw-rooftop.jpg" },
+            { cat: "EV", title: "EV Charging Bay — Corporate Campus", tone: "sky", icon: "ev_station", img: "images/gallery/05-ev-charging-bay.jpg" },
+            { cat: "Industrial", title: "100HP Solar Pump — Irrigation Farm", tone: "navy", icon: "agriculture", img: "images/gallery/06-industrial-100hp-solar-pump.jpg" },
+            { cat: "Residential", title: "5kW Hybrid Inverter — Villa", tone: "orange", icon: "villa", img: "images/gallery/07-residential-5kw-hybrid-inverter.jpg" },
+            { cat: "Apartments", title: "80kW Rooftop — Housing Society", tone: "sky", icon: "apartment", img: "images/gallery/08-apartments-80kw-rooftop.jpg" },
+            { cat: "EV", title: "EV Fast-Charge Hub — Retail Plaza", tone: "navy", icon: "ev_station", img: "images/gallery/09-ev-fast-charge-hub.jpg" },
+            { cat: "Commercial", title: "200KVA PCU — Textile Unit", tone: "orange", icon: "factory", img: "images/gallery/10-commercial-200kva-pcu.jpg" },
+            { cat: "Apartments", title: "60kW Rooftop — Prestige Apartments", tone: "sky", icon: "apartment", img: "images/gallery/11-apartments-60kw-rooftop.jpg" },
+            { cat: "Industrial", title: "30kW System — Warehouse", tone: "navy", icon: "warehouse", img: "images/gallery/12-industrial-30kw-warehouse.jpg" },
+        ];
+
+        function galleryTile(item, i) {
+            const t = tones[item.tone];
+            return `
+    <div class="gallery-tile reveal in group rounded-2xl border border-line bg-paper overflow-hidden card-soft" data-cat="${item.cat}">
+      <div class="imgbox relative aspect-[4/3] overflow-hidden">
+        <img class="real-img w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" src="${item.img}" alt="${item.title}" onerror="this.closest('.imgbox').classList.add('broken')">
+        <div class="img-fallback absolute inset-0 items-center justify-center bg-gradient-to-br ${t.grad}">
+          <span class="msi text-[56px] ${t.text}">${item.icon}</span>
+        </div>
+        <div class="absolute inset-0 bg-gradient-to-t from-ink/65 via-ink/10 to-transparent"></div>
+        <span class="absolute top-3 left-3 eyebrow text-[10px] uppercase tracking-wide bg-ink/85 text-paper px-2.5 py-1 rounded-full">${item.cat}</span>
+      </div>
+      <div class="p-4 border-t border-line">
+        <p class="text-sm font-semibold text-ink leading-snug">${item.title}</p>
+      </div>
+    </div>`;
+        }
+        document.getElementById('galleryGrid').innerHTML = galleryItems.map(galleryTile).join('');
+
+        // ---------- GALLERY FILTERS ----------
+        const galleryCats = ["All", "Apartments", "Commercial", "Industrial", "Residential", "EV"];
+        const filtersEl = document.getElementById('galleryFilters');
+        filtersEl.innerHTML = galleryCats.map((cat, i) => `
+      <button type="button" data-filter="${cat}" class="filter-pill${i === 0 ? ' active' : ''} eyebrow text-xs uppercase rounded-full border border-line px-4 py-2 text-ink3 hover:border-navy/40">${cat}</button>
+    `).join('');
+
+        filtersEl.addEventListener('click', (e) => {
+            const btn = e.target.closest('[data-filter]');
+            if (!btn) return;
+            const filter = btn.dataset.filter;
+            filtersEl.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+            btn.classList.add('active');
+            document.querySelectorAll('.gallery-tile').forEach(tile => {
+                const show = filter === 'All' || tile.dataset.cat === filter;
+                tile.classList.toggle('hide', !show);
+            });
+        });
+
+        // ---------- MENU ----------
+        document.getElementById('menuBtn').addEventListener('click', () => {
+            const m = document.getElementById('mobileMenu');
+            m.classList.toggle('hidden');
+            m.classList.toggle('flex');
+        });
+
+        // ---------- NAV SHADOW ----------
+        const nav = document.getElementById('mainNav');
+        window.addEventListener('scroll', () => {
+            nav.classList.toggle('nav-shadow', window.scrollY > 8);
+        });
+
+        // ---------- COUNTERS ----------
+        const counters = document.querySelectorAll('[data-count]');
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                const el = entry.target;
+                const target = +el.dataset.count;
+                const suffix = el.dataset.suffix || '';
+                let start = null;
+                const dur = 1200;
+                function step(ts) {
+                    if (!start) start = ts;
+                    const p = Math.min((ts - start) / dur, 1);
+                    el.textContent = Math.round(p * target) + suffix;
+                    if (p < 1) requestAnimationFrame(step);
+                }
+                requestAnimationFrame(step);
+                counterObserver.unobserve(el);
+            });
+        }, { threshold: 0.4 });
+        counters.forEach(el => counterObserver.observe(el));
+
+        // ---------- REVEAL ON SCROLL ----------
+        function observeReveals() {
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('in');
+                        revealObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.12 });
+            document.querySelectorAll('.reveal:not(.in)').forEach(el => revealObserver.observe(el));
+        }
+        observeReveals();
+
+        // ---------- SAVINGS CALCULATOR ----------
+        (function savingsCalculator() {
+            const billInput = document.getElementById('calcBill');
+            if (!billInput) return;
+            const billLabel = document.getElementById('calcBillLabel');
+            const useCasePills = document.querySelectorAll('#calcUseCase .calc-pill');
+            const useLabelEl = document.getElementById('calcUseLabel');
+            const sizeEl = document.getElementById('calcSize');
+            const monthlyEl = document.getElementById('calcMonthly');
+            const paybackEl = document.getElementById('calcPayback');
+            const yr25El = document.getElementById('calc25yr');
+            const waBtn = document.getElementById('calcWaBtn');
+
+            let mult = 1;
+            let useLabel = 'Home / Residential';
+
+            const TARIFF = 8;          // ₹ per unit, approx blended tariff
+            const UNITS_PER_KW_DAY = 4; // avg usable units per kW per day, Bengaluru
+            const COST_PER_KW = 55000;  // approx installed cost per kW before subsidy
+            const SAVINGS_CAPTURE = 0.85; // share of bill offset by self-consumption + export
+
+            function formatINR(n) {
+                return Math.round(n).toLocaleString('en-IN');
+            }
+
+            function update() {
+                const bill = +billInput.value;
+                billLabel.textContent = formatINR(bill);
+
+                const unitsUsed = bill / TARIFF;                 // units/month implied by bill
+                const dailyUnits = unitsUsed / 30;
+                let sizeKw = (dailyUnits / UNITS_PER_KW_DAY) * mult;
+                sizeKw = Math.max(1, Math.round(sizeKw * 2) / 2); // round to nearest 0.5kW, min 1kW
+
+                const monthlySavings = bill * SAVINGS_CAPTURE;
+                const systemCost = sizeKw * COST_PER_KW;
+                const paybackYears = systemCost / (monthlySavings * 12);
+                const savings25yr = monthlySavings * 12 * 25 * 0.9; // slight degradation factor
+
+                sizeEl.textContent = sizeKw.toFixed(1).replace(/\.0$/, '');
+                monthlyEl.textContent = formatINR(monthlySavings);
+                paybackEl.textContent = paybackYears.toFixed(1);
+                yr25El.textContent = (savings25yr / 100000).toFixed(1) + 'L';
+                useLabelEl.textContent = useLabel;
+
+                const msg = encodeURIComponent(
+                    `Hi SETfusion, I used your savings calculator.\nUse case: ${useLabel}\nMonthly bill: ₹${formatINR(bill)}\nEstimated system: ${sizeKw} kW\nEstimated payback: ${paybackYears.toFixed(1)} yrs\nI'd like an exact quote.`
+                );
+                waBtn.href = `https://wa.me/919972779899?text=${msg}`;
+            }
+
+            billInput.addEventListener('input', update);
+            useCasePills.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    useCasePills.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    mult = +btn.dataset.mult;
+                    useLabel = btn.dataset.label;
+                    update();
+                });
+            });
+
+            update();
+        })();
+
+        // ---------- FAQ ACCORDION ----------
+        (function faqAccordion() {
+            const items = document.querySelectorAll('.faq-item');
+            items.forEach(item => {
+                item.querySelector('.faq-q').addEventListener('click', () => {
+                    const isOpen = item.classList.contains('open');
+                    items.forEach(i => i.classList.remove('open'));
+                    if (!isOpen) item.classList.add('open');
+                });
+            });
+        })();
+        (function heroSlider() {
+            const slides = gsap.utils.toArray('.hslide');
+            if (!slides.length || typeof gsap === 'undefined') return;
+
+            const dotsEl = document.getElementById('sliderDots');
+            const headline = document.getElementById('sliderHeadline');
+            const sub = document.getElementById('sliderSub');
+            const eyebrow = document.getElementById('sliderEyebrow');
+
+            const copy = [
+                { eyebrow: 'Your Desire. Our Innovations.', h: 'Solar power electronics, <span class="italic text-orange">engineered</span> and built under one roof.', s: 'Manufactured, installed and supported by our own engineers — from a single rooftop to a 300KVA industrial plant.' },
+                { eyebrow: 'Grid-scale to rooftop', h: 'From <span class="italic text-orange">one home</span> to a hundred acres of load.', s: 'The same in-house engineering team sizes, builds and commissions every system — residential, agricultural or industrial.' },
+                { eyebrow: 'Tender-ready, always', h: 'BIS, ISO and MNRE certified for <span class="italic text-orange">government procurement</span>.', s: 'Documentation handled end-to-end, so housing societies and public tenders move without delay.' },
+            ];
+
+            let index = 0;
+            let autoplay;
+            const DURATION = 6000;
+
+            slides.forEach((s, i) => dotsEl.insertAdjacentHTML('beforeend', `<button type="button" class="slider-dot${i === 0 ? ' active' : ''}" data-i="${i}" aria-label="Go to slide ${i + 1}"><span class="fill"></span></button>`));
+            const dots = gsap.utils.toArray('.slider-dot');
+
+            function playDotFill(i) {
+                dots.forEach(d => d.querySelector('.fill').style.width = '0%');
+                gsap.to(dots[i].querySelector('.fill'), { width: '100%', duration: DURATION / 1000, ease: 'none' });
+            }
+
+            function updateCopy(i) {
+                gsap.timeline()
+                    .to([eyebrow, headline, sub], { opacity: 0, y: -10, duration: .3, ease: 'power2.in' })
+                    .call(() => {
+                        eyebrow.textContent = copy[i].eyebrow;
+                        headline.innerHTML = copy[i].h;
+                        sub.textContent = copy[i].s;
+                    })
+                    .fromTo([eyebrow, headline, sub], { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: .5, ease: 'power2.out', stagger: .06 });
+            }
+
+            function goTo(i) {
+                const next = (i + slides.length) % slides.length;
+                if (next === index) return;
+
+                const current = slides[index];
+                const upcoming = slides[next];
+                const img = upcoming.querySelector('img');
+
+                gsap.set(upcoming, { visibility: 'visible', zIndex: 2 });
+                gsap.set(img, { scale: 1.12 });
+                gsap.set(current, { zIndex: 1 });
+
+                gsap.timeline()
+                    .to(current, { opacity: 0, duration: 1, ease: 'power2.inOut' }, 0)
+                    .fromTo(upcoming, { opacity: 0 }, { opacity: 1, duration: 1, ease: 'power2.inOut' }, 0)
+                    .to(img, { scale: 1, duration: DURATION / 1000 + 1, ease: 'none' }, 0)
+                    .set(current, { visibility: 'hidden' });
+
+                dots.forEach(d => d.classList.remove('active'));
+                dots[next].classList.add('active');
+                playDotFill(next);
+                updateCopy(next);
+                index = next;
+            }
+
+            function startAutoplay() {
+                clearInterval(autoplay);
+                autoplay = setInterval(() => goTo(index + 1), DURATION);
+            }
+
+            // init first slide
+            gsap.set(slides[0], { opacity: 1, visibility: 'visible', zIndex: 2 });
+            gsap.fromTo(slides[0].querySelector('img'), { scale: 1.12 }, { scale: 1, duration: DURATION / 1000 + 1, ease: 'none' });
+            playDotFill(0);
+
+            document.getElementById('sliderNext').addEventListener('click', () => { goTo(index + 1); startAutoplay(); });
+            document.getElementById('sliderPrev').addEventListener('click', () => { goTo(index - 1); startAutoplay(); });
+            dots.forEach(d => d.addEventListener('click', () => { goTo(+d.dataset.i); startAutoplay(); }));
+
+            // entrance animation for hero copy + slider chrome
+            gsap.fromTo('#sliderEyebrow, #sliderHeadline, #sliderSub', { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: .8, ease: 'power3.out', stagger: .08, delay: .2 });
+            gsap.fromTo('#heroSlider .mt-9 a', { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: .7, ease: 'power3.out', stagger: .08, delay: .55 });
+            gsap.fromTo('#sliderDots, #sliderPrev, #sliderNext', { opacity: 0 }, { opacity: 1, duration: .8, delay: .8 });
+
+            // basic touch swipe
+            let touchX = null;
+            const sliderSection = document.getElementById('home');
+            sliderSection.addEventListener('touchstart', e => touchX = e.touches[0].clientX, { passive: true });
+            sliderSection.addEventListener('touchend', e => {
+                if (touchX === null) return;
+                const dx = e.changedTouches[0].clientX - touchX;
+                if (Math.abs(dx) > 40) { goTo(index + (dx < 0 ? 1 : -1)); startAutoplay(); }
+                touchX = null;
+            }, { passive: true });
+
+            startAutoplay();
+        })();
+
+        // Disable Right Click and F12 to protect content (optional, can be removed if not desired)
+        document.addEventListener('contextmenu', function (e) {
+            e.preventDefault();
+        });
+
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'F12') {
+                e.preventDefault();
+            }
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <title>Contact Us — SETfusion | Talk to Our Solar Engineering Team</title>
+    <meta name="description"
+        content="Get in touch with SETfusion for solar pump controllers, inverters, PCUs and power systems. Call, WhatsApp or email our Bengaluru facility — or send a message and our engineers will get back to you.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Serif+Oriya:wght@400..700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,400,0..1,0" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        paper: '#ffffff',
+                        paper2: '#f9f9fe',
+                        ink: '#000000',
+                        ink2: '#4B5468',
+                        ink3: '#8E96A8',
+                        line: '#E3E7F0',
+                        navy: { DEFAULT: '#F4791A', deep: '#CC5E0A', soft: '#E7ECF9' },
+                        orange: { DEFAULT: '#F4791A', deep: '#CC5E0A', soft: '#FDEADB' },
+                        sky: { DEFAULT: '#1CADEE', deep: '#1181B8', soft: '#E4F5FC' },
+                        lime: { DEFAULT: '#8BC53F', soft: '#EEF7E1' },
+                    },
+                    fontFamily: {
+                        display: ['Noto Serif Oriya', 'serif'],
+                        body: ['Inter', 'sans-serif'],
+                        mono: ['Inter', 'sans-serif'],
+                    },
+                    borderRadius: { '4xl': '2rem' },
+                }
+            }
+        }
+    </script>
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #FAF9F6;
+        }
+
+        .eyebrow {
+            font-family: 'Inter', sans-serif;
+            letter-spacing: .05em;
+            font-weight: 600;
+        }
+
+        .sun-arc {
+            position: relative;
+        }
+
+        .sun-arc::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background:
+                radial-gradient(60% 60% at 78% 18%, rgba(244, 121, 26, 0.20) 0%, rgba(244, 121, 26, 0) 68%),
+                radial-gradient(45% 45% at 10% 92%, rgba(18, 44, 107, 0.14) 0%, rgba(18, 44, 107, 0) 70%);
+        }
+
+        .nav-shadow {
+            box-shadow: 0 1px 0 0 rgba(14, 21, 38, 0.06);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #FF9A3D 0%, #F4791A 55%, #CC5E0A 100%);
+            color: #ffffff;
+            transition: filter .18s ease, transform .18s ease;
+        }
+
+        .btn-primary:hover {
+            filter: brightness(1.06);
+        }
+
+        .btn-primary:disabled {
+            filter: grayscale(.15) brightness(.96);
+            cursor: not-allowed;
+        }
+
+        .btn-outline {
+            border: 1.5px solid #0E1526;
+            color: #0E1526;
+            transition: background-color .18s ease, color .18s ease;
+        }
+
+        .btn-outline:hover {
+            background: #0E1526;
+            color: #FAF9F6;
+        }
+
+        .btn-outline-light {
+            border: 1.5px solid rgba(250, 249, 246, 0.45);
+            color: #FAF9F6;
+            transition: background-color .18s ease;
+        }
+
+        .btn-outline-light:hover {
+            background: rgba(250, 249, 246, 0.14);
+        }
+
+        .card-soft {
+            box-shadow: 0 1px 2px rgba(14, 21, 38, 0.04), 0 14px 34px -18px rgba(14, 21, 38, 0.26);
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(14px);
+            transition: opacity .6s ease, transform .6s ease;
+        }
+
+        .reveal.in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .num {
+            font-variant-numeric: tabular-nums;
+        }
+
+        ::selection {
+            background: #F4791A;
+            color: #FAF9F6;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                transition-duration: 0.001ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
+        /* Material Symbols baseline */
+        .msi {
+            font-family: 'Material Symbols Outlined';
+            font-weight: 400;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .msi-fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        /* ---------- CHANNEL CARDS ---------- */
+        .channel-card {
+            transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+        }
+
+        .channel-card:hover {
+            transform: translateY(-4px);
+            border-color: transparent;
+        }
+
+        /* ---------- FORM FIELDS ---------- */
+        .field-input {
+            width: 100%;
+            background: #FAF9F6;
+            border: 1.5px solid #E3E7F0;
+            border-radius: 0.9rem;
+            padding: 0.85rem 1rem;
+            font-size: 15px;
+            color: #0E1526;
+            transition: border-color .18s ease, background-color .18s ease, box-shadow .18s ease;
+        }
+
+        .field-input::placeholder {
+            color: #8E96A8;
+        }
+
+        .field-input:focus {
+            outline: none;
+            border-color: #F4791A;
+            background: #ffffff;
+            box-shadow: 0 0 0 4px rgba(244, 121, 26, 0.12);
+        }
+
+        .field-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #4B5468;
+            margin-bottom: 0.4rem;
+            display: block;
+        }
+
+        .field-error {
+            display: none;
+            font-size: 12.5px;
+            color: #DC4A32;
+            margin-top: 0.35rem;
+        }
+
+        .field-group.invalid .field-input {
+            border-color: #DC4A32;
+            box-shadow: 0 0 0 4px rgba(220, 74, 50, 0.08);
+        }
+
+        .field-group.invalid .field-error {
+            display: block;
+        }
+
+        /* ---------- SEND BUTTON / LOADING ---------- */
+        .btn-spinner {
+            display: none;
+            width: 17px;
+            height: 17px;
+            border-radius: 999px;
+            border: 2.2px solid rgba(255, 255, 255, 0.4);
+            border-top-color: #ffffff;
+            animation: spin .7s linear infinite;
+        }
+
+        #sendBtn.is-loading .btn-spinner {
+            display: inline-block;
+        }
+
+        #sendBtn.is-loading .btn-label-idle {
+            display: none;
+        }
+
+        #sendBtn .btn-label-loading {
+            display: none;
+        }
+
+        #sendBtn.is-loading .btn-label-loading {
+            display: inline;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ---------- SUCCESS PANEL ---------- */
+        #formPanel {
+            position: relative;
+            transition: opacity .25s ease;
+        }
+
+        #successPanel {
+            display: none;
+        }
+
+        #successPanel.show {
+            display: flex;
+        }
+
+        .success-tick {
+            animation: tickPop .5s cubic-bezier(.2, 1.4, .4, 1) both;
+        }
+
+        @keyframes tickPop {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+
+            70% {
+                transform: scale(1.12);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* ---------- FLOATING WHATSAPP ---------- */
+        #floatWa {
+            position: fixed;
+            right: 22px;
+            bottom: 22px;
+            z-index: 60;
+            width: 58px;
+            height: 58px;
+            border-radius: 999px;
+            background: #22C55E;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 26px -6px rgba(34, 197, 94, 0.55);
+            transition: transform .18s ease;
+        }
+
+        #floatWa:hover {
+            transform: scale(1.06);
+        }
+
+        #floatWa .ping {
+            position: absolute;
+            inset: 0;
+            border-radius: 999px;
+            background: #22C55E;
+            opacity: .6;
+            animation: waPing 2.2s cubic-bezier(0, 0, 0.2, 1) infinite;
+        }
+
+        @keyframes waPing {
+
+            75%,
+            100% {
+                transform: scale(1.7);
+                opacity: 0;
+            }
+        }
+
+        /* ---------- MOBILE STICKY CTA ---------- */
+        #mobileCta {
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 55;
+        }
+    </style>
+</head>
+
+<body class="font-body text-ink bg-paper antialiased pb-[72px] sm:pb-0">
+
+    <!-- NAVBAR -->
+    <nav id="mainNav" class="fixed top-0 left-0 w-full z-50 bg-white border-b border-line">
+        <div class="max-w-7xl mx-auto px-6 lg:px-10 h-[76px] flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-2.5 shrink-0">
+                <img src="https://demo.amortree.com/SETfusion/logo.avif" alt="SETfusion logo"
+                    class="w-[220px] object-contain" />
+            </a>
+
+            <div class="hidden lg:flex items-center gap-7 text-[15px] font-medium text-ink2">
+                <a href="index.html#home" class="hover:text-ink transition-colors">Home</a>
+                <a href="products.html" class="hover:text-ink transition-colors">Products</a>
+                <a href="index.html#calculator" class="hover:text-ink transition-colors">Savings Calculator</a>
+                <a href="about.html" class="hover:text-ink transition-colors">About</a>
+                <a href="gallery.html" class="hover:text-ink transition-colors">Gallery</a>
+                <a href="contact.html" class="text-ink border-b-2 border-orange pb-0.5">Contact</a>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <a href="subsidy.html"
+                    class="hidden sm:inline-flex items-center gap-1.5 btn-primary text-sm font-semibold px-5 py-2.5 rounded-full">
+                    Govt. Subsidy
+                </a>
+                <button id="menuBtn" class="lg:hidden text-ink p-2" aria-label="Open menu">
+                    <span class="msi text-[26px]">menu</span>
+                </button>
+            </div>
+        </div>
+        <div id="mobileMenu"
+            class="hidden lg:hidden flex-col gap-1 px-6 pb-5 text-ink2 text-[15px] font-medium bg-paper border-t border-line">
+            <a href="index.html#home" class="block py-3 border-b border-line">Home</a>
+            <a href="products.html" class="block py-3 border-b border-line">Products</a>
+            <a href="index.html#calculator" class="block py-3 border-b border-line">Savings Calculator</a>
+            <a href="about.html" class="block py-3 border-b border-line">About</a>
+            <a href="gallery.html" class="block py-3 border-b border-line">Gallery</a>
+            <a href="contact.html" class="block py-3 text-orange-deep font-semibold">Contact</a>
+        </div>
+    </nav>
+
+    <!-- BREADCRUMB -->
+    <div class="pt-[82px] bg-paper2">
+        <div class="max-w-7xl mx-auto px-6 lg:px-10 py-3 flex items-center gap-2 text-xs text-ink3">
+            <a href="index.html" class="hover:text-orange-deep transition">Home</a>
+            <span class="msi text-[14px]">chevron_right</span>
+            <span class="text-ink2 font-medium">Contact</span>
+        </div>
+    </div>
+
+    <!-- HERO -->
+    <header class="sun-arc relative pt-[80px] pb-14 lg:pb-20 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 lg:px-10">
+            <p class="reveal in eyebrow text-xs text-orange-deep uppercase mb-6">Get In Touch</p>
+            <h1
+                class="reveal in font-display font-medium text-[36px] sm:text-[48px] lg:text-[58px] leading-[1.06] tracking-tight text-ink max-w-3xl">
+                Tell us about your load. <span class="italic text-navy">We'll size the answer.</span>
+            </h1>
+            <p class="reveal in mt-6 text-[17px] text-ink2 max-w-xl leading-relaxed">
+                Whether it's a single rooftop or a tender-ready industrial plant, our in-house engineers reply
+                within a few working hours — call, WhatsApp, or send the form below.
+            </p>
+        </div>
+    </header>
+
+    <!-- QUICK CHANNELS -->
+    <section class="relative -mt-2 lg:-mt-4 pb-4">
+        <div class="max-w-7xl mx-auto px-6 lg:px-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            <a href="tel:+919972779899"
+                class="channel-card card-soft bg-white rounded-3xl border border-line p-6 flex flex-col gap-3">
+                <span
+                    class="w-11 h-11 rounded-2xl bg-orange-soft text-orange-deep flex items-center justify-center">
+                    <span class="msi text-[22px]">call</span>
+                </span>
+                <p class="font-display text-[19px] font-medium text-ink">Call Us</p>
+                <p class="text-sm text-ink2 leading-relaxed">Speak directly with our engineering desk, Mon–Sat.</p>
+                <span class="text-sm font-semibold text-orange-deep mt-auto">+91 99727 79899</span>
+            </a>
+
+            <a href="https://wa.me/919972779899?text=Hi%20SETfusion%2C%20I%27d%20like%20to%20get%20in%20touch."
+                target="_blank" rel="noopener"
+                class="channel-card card-soft bg-white rounded-3xl border border-line p-6 flex flex-col gap-3">
+                <span class="w-11 h-11 rounded-2xl bg-lime-soft text-[#3E7A0F] flex items-center justify-center">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3.1.8.8-3-.2-.3a8.2 8.2 0 1 1 7 3.9Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.7.8-.8 1-.2.2-.3.2-.5.1-.2-.1-1-.4-2-1.2-.7-.6-1.2-1.4-1.4-1.6-.1-.2 0-.4.1-.5.1-.1.2-.3.4-.4.1-.2.2-.3.3-.4.1-.2 0-.4 0-.5 0-.1-.6-1.5-.9-2-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.2-.9.9-.9 2.2s1 2.6 1.1 2.7c.1.2 2 3 4.7 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.5-.6 1.8-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z" />
+                    </svg>
+                </span>
+                <p class="font-display text-[19px] font-medium text-ink">WhatsApp</p>
+                <p class="text-sm text-ink2 leading-relaxed">Fastest way to reach us — share your bill or site
+                    photos.</p>
+                <span class="text-sm font-semibold text-orange-deep mt-auto">Chat now</span>
+            </a>
+
+            <a href="mailto:info@setfusion.in"
+                class="channel-card card-soft bg-white rounded-3xl border border-line p-6 flex flex-col gap-3">
+                <span class="w-11 h-11 rounded-2xl bg-sky-soft text-sky-deep flex items-center justify-center">
+                    <span class="msi text-[22px]">mail</span>
+                </span>
+                <p class="font-display text-[19px] font-medium text-ink">Email</p>
+                <p class="text-sm text-ink2 leading-relaxed">For tenders, documentation and formal quotations.</p>
+                <span class="text-sm font-semibold text-orange-deep mt-auto">info@setfusion.in</span>
+            </a>
+
+            <a href="https://maps.google.com/?q=SETfusion+RC+Pura+Road+Doddabommasandra+Bengaluru" target="_blank"
+                rel="noopener"
+                class="channel-card card-soft bg-white rounded-3xl border border-line p-6 flex flex-col gap-3">
+                <span class="w-11 h-11 rounded-2xl bg-navy-soft text-[#12315E] flex items-center justify-center">
+                    <span class="msi text-[22px]">location_on</span>
+                </span>
+                <p class="font-display text-[19px] font-medium text-ink">Visit Us</p>
+                <p class="text-sm text-ink2 leading-relaxed">Our manufacturing facility, Doddabommasandra,
+                    Bengaluru.</p>
+                <span class="text-sm font-semibold text-orange-deep mt-auto">Get directions</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- FORM + INFO -->
+    <section class="py-20 lg:py-28">
+        <div class="max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-5 gap-12">
+
+            <!-- FORM -->
+            <div class="lg:col-span-3">
+                <p class="reveal eyebrow text-xs text-orange-deep uppercase mb-3">Send a Message</p>
+                <h2 class="reveal font-display text-[30px] lg:text-[36px] font-medium tracking-tight text-ink leading-[1.1] mb-3">
+                    We'll reach out the same way you reach us.
+                </h2>
+                <p class="reveal text-ink2 text-[15px] leading-relaxed mb-8 max-w-lg">
+                    Fill this in and your message goes straight to our WhatsApp line and inbox — no waiting on a
+                    contact-us black hole.
+                </p>
+
+                <div id="formPanel" class="reveal card-soft bg-white border border-line rounded-4xl p-6 sm:p-9">
+                    <form id="contactForm" novalidate>
+                        <div class="grid sm:grid-cols-2 gap-5">
+                            <div class="field-group">
+                                <label class="field-label" for="cf-name">Full name</label>
+                                <input id="cf-name" name="name" type="text" class="field-input"
+                                    placeholder="e.g. Rakesh Kumar" required>
+                                <p class="field-error">Please enter your name.</p>
+                            </div>
+                            <div class="field-group">
+                                <label class="field-label" for="cf-phone">Phone number</label>
+                                <input id="cf-phone" name="phone" type="tel" class="field-input"
+                                    placeholder="e.g. 98765 43210" required>
+                                <p class="field-error">Please enter a valid phone number.</p>
+                            </div>
+                        </div>
+
+                        <div class="field-group mt-5">
+                            <label class="field-label" for="cf-email">Email address</label>
+                            <input id="cf-email" name="email" type="email" class="field-input"
+                                placeholder="you@example.com" required>
+                            <p class="field-error">Please enter a valid email address.</p>
+                        </div>
+
+                        <div class="field-group mt-5">
+                            <label class="field-label" for="cf-interest">I'm interested in</label>
+                            <select id="cf-interest" name="interest" class="field-input">
+                                <option>Residential Rooftop Solar</option>
+                                <option>Agricultural / Solar Pumping</option>
+                                <option>Industrial / Commercial Power</option>
+                                <option>Government Tender / Housing Society</option>
+                                <option>Surya Ghar Subsidy</option>
+                                <option>Something else</option>
+                            </select>
+                        </div>
+
+                        <div class="field-group mt-5">
+                            <label class="field-label" for="cf-message">Your message</label>
+                            <textarea id="cf-message" name="message" rows="4" class="field-input resize-none"
+                                placeholder="Tell us about your site, monthly bill, or project — the more detail, the faster the quote."
+                                required></textarea>
+                            <p class="field-error">Please add a short message.</p>
+                        </div>
+
+                        <button id="sendBtn" type="submit"
+                            class="btn-primary w-full mt-7 inline-flex items-center justify-center gap-2.5 font-semibold px-7 py-4 rounded-full">
+                            <span class="btn-spinner"></span>
+                            <span class="btn-label-idle inline-flex items-center gap-2">Send Message <span
+                                    class="msi text-[18px]">arrow_forward</span></span>
+                            <span class="btn-label-loading">Sending your message…</span>
+                        </button>
+
+                        <p class="text-xs text-ink3 text-center mt-4 leading-relaxed">
+                            On submit, we'll open WhatsApp with your message pre-filled and prepare an email to our
+                            team — so you're reaching us on both channels at once.
+                        </p>
+                    </form>
+
+                    <!-- SUCCESS STATE -->
+                    <div id="successPanel" class="flex-col items-center text-center py-6">
+                        <div
+                            class="success-tick w-16 h-16 rounded-full bg-lime-soft text-[#3E7A0F] flex items-center justify-center mb-5">
+                            <span class="msi msi-fill text-[32px]">check</span>
+                        </div>
+                        <h3 class="font-display text-[24px] font-medium text-ink mb-2">Thank you, <span
+                                id="successName">there</span>!</h3>
+                        <p class="text-ink2 text-[15px] leading-relaxed max-w-sm">
+                            Your message is on its way to our team on WhatsApp and email. We typically reply within
+                            a few working hours.
+                        </p>
+                        <div class="flex flex-wrap justify-center gap-3 mt-7">
+                            <a id="successWaLink" href="#" target="_blank" rel="noopener"
+                                class="inline-flex items-center gap-2 btn-primary font-semibold px-6 py-3 rounded-full text-sm">
+                                Continue on WhatsApp
+                            </a>
+                            <button id="resetFormBtn" type="button"
+                                class="inline-flex items-center gap-2 btn-outline font-semibold px-6 py-3 rounded-full text-sm">
+                                Send another message
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- INFO SIDEBAR -->
+            <div class="lg:col-span-2 flex flex-col gap-6">
+                <div class="reveal card-soft bg-ink rounded-4xl p-7 sm:p-8 relative overflow-hidden">
+                    <div class="absolute -top-16 -right-16 w-56 h-56 rounded-full bg-orange/15 blur-3xl"></div>
+                    <p class="eyebrow text-xs text-orange uppercase mb-4 relative">Our Facility</p>
+                    <p class="text-paper font-display text-[20px] leading-snug mb-5 relative">
+                        #9, 1st Floor, RC Pura Road,<br>Behind BEL Colony, Doddabommasandra,<br>Bengaluru, Karnataka
+                        — 560097
+                    </p>
+                    <ul class="space-y-3 text-sm text-ink3 relative">
+                        <li class="flex items-center gap-2.5">
+                            <span class="msi text-[18px] text-orange">schedule</span>
+                            Mon – Sat, 9:30 AM – 6:30 PM
+                        </li>
+                        <li class="flex items-center gap-2.5">
+                            <span class="msi text-[18px] text-orange">call</span>
+                            <a href="tel:+919972779899" class="hover:text-paper transition">+91 99727 79899</a>
+                        </li>
+                        <li class="flex items-center gap-2.5">
+                            <span class="msi text-[18px] text-orange">mail</span>
+                            <a href="mailto:info@setfusion.in" class="hover:text-paper transition">info@setfusion.in</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="reveal rounded-4xl overflow-hidden border border-line card-soft h-[280px]">
+                    <iframe
+                        src="https://maps.google.com/maps?q=Doddabommasandra%2C%20Bengaluru%2C%20Karnataka%20560097&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                        width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade" title="SETfusion location map"></iframe>
+                </div>
+
+                <div class="reveal bg-orange-soft rounded-4xl p-7 flex items-start gap-4">
+                    <span class="msi text-orange-deep text-[26px] shrink-0">verified</span>
+                    <p class="text-sm text-ink2 leading-relaxed">
+                        <span class="font-semibold text-ink">BIS · ISO · MNRE Empanelled.</span> Tender documentation
+                        handled end-to-end for housing societies and government procurement.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="relative py-24 overflow-hidden" style="background-color: rgb(186, 85, 7);">
+        <div class="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-orange/10 blur-3xl"></div>
+        <div class="absolute -bottom-24 -left-24 w-96 h-96 rounded-full bg-sky/10 blur-3xl"></div>
+        <div class="relative max-w-4xl mx-auto px-6 text-center">
+            <h2
+                class="reveal font-display text-[32px] lg:text-[46px] font-medium text-paper tracking-tight leading-[1.1]">
+                Prefer to talk it through first?
+            </h2>
+            <p class="reveal mt-5 text-paper/70 max-w-xl mx-auto">Our engineers are happy to walk you through
+                sizing, subsidy eligibility, and timelines on a quick call.</p>
+            <div class="reveal mt-9 flex flex-wrap justify-center gap-4">
+                <a href="tel:+919972779899"
+                    class="inline-flex items-center gap-2 btn-primary font-semibold px-7 py-3.5 rounded-full">
+                    <span class="msi text-[18px]">call</span> Call +91 99727 79899
+                </a>
+                <a href="https://wa.me/919972779899" target="_blank" rel="noopener"
+                    class="inline-flex items-center gap-2 btn-outline-light font-semibold px-7 py-3.5 rounded-full">
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3.1.8.8-3-.2-.3a8.2 8.2 0 1 1 7 3.9Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.7.8-.8 1-.2.2-.3.2-.5.1-.2-.1-1-.4-2-1.2-.7-.6-1.2-1.4-1.4-1.6-.1-.2 0-.4.1-.5.1-.1.2-.3.4-.4.1-.2.2-.3.3-.4.1-.2 0-.4 0-.5 0-.1-.6-1.5-.9-2-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.2-.9.9-.9 2.2s1 2.6 1.1 2.7c.1.2 2 3 4.7 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.5-.6 1.8-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z" />
+                    </svg>
+                    WhatsApp Us
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="contact" class="bg-ink pt-20 pb-8">
+        <div class="max-w-7xl mx-auto px-6 lg:px-10 grid md:grid-cols-4 gap-12">
+            <div class="md:col-span-1">
+                <div class="flex items-center gap-2.5 mb-4">
+                    <span class="font-display font-medium text-paper text-xl">SET<span
+                            class="italic text-orange">fusion</span></span>
+                </div>
+                <p class="text-ink3 text-sm leading-relaxed">Your Desire. Our Innovations.<br>Solar power electronics,
+                    manufactured and installed in Bengaluru since 2015.</p>
+            </div>
+
+            <div>
+                <p class="text-paper font-semibold text-sm mb-4">Company</p>
+                <ul class="space-y-2.5 text-sm text-ink3">
+                    <li><a href="about.html" class="hover:text-paper transition">About Us</a></li>
+                    <li><a href="products.html" class="hover:text-paper transition">Products</a></li>
+                    <li><a href="gallery.html" class="hover:text-paper transition">Gallery</a></li>
+                    <li><a href="subsidy.html" class="hover:text-paper transition">Surya Ghar / Subsidy</a></li>
+                    <li><a href="#" class="hover:text-paper transition">Certifications</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <p class="text-paper font-semibold text-sm mb-4">Products</p>
+                <ul class="space-y-2.5 text-sm text-ink3">
+                    <li><a href="products.html#pumping" class="hover:text-paper transition">Pumping Solutions</a></li>
+                    <li><a href="products.html#inverters" class="hover:text-paper transition">Inverters &amp; PCUs</a>
+                    </li>
+                    <li><a href="products.html#controllers" class="hover:text-paper transition">Charge Controllers</a>
+                    </li>
+                    <li><a href="products.html#backup" class="hover:text-paper transition">Power Backup</a></li>
+                    <li><a href="products.html#panels" class="hover:text-paper transition">Panels &amp; Lighting</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div>
+                <p class="text-paper font-semibold text-sm mb-4">Contact</p>
+                <ul class="space-y-2.5 text-sm text-ink3">
+                    <li>#9, 1st Floor, RC Pura road, Behind BEL Colony, Doddabommasandra, Bangalore, Karnataka, India -
+                        560097.</li>
+                    <li><a href="tel:+919972779899" class="hover:text-paper transition">+91 99727 79899</a></li>
+                    <li><a href="mailto:info@setfusion.in" class="hover:text-paper transition">info@setfusion.in</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div
+            class="max-w-7xl mx-auto px-6 lg:px-10 mt-14 pt-6 border-t border-white/10 flex flex-col sm:flex-row justify-between gap-4 text-xs text-ink3">
+            <p>© 2026 SETfusion. All rights reserved. Crafted with <span class="text-red-500">♥</span> by <a
+                    href="http://amortree.com/" class="hover:text-white">amortree Tech</a> & <a
+                    href="https://www.eonstrategy.in/" class="hover:text-white">eon</a></p>
+            <p class="eyebrow">BIS · ISO · MNRE Empanelled · MSME Registered</p>
+        </div>
+    </footer>
+
+    <!-- FLOATING WHATSAPP -->
+    <a id="floatWa"
+        href="https://wa.me/919972779899?text=Hi%20SETfusion%2C%20I%27d%20like%20to%20get%20in%20touch."
+        target="_blank" rel="noopener" aria-label="Chat with SETfusion on WhatsApp">
+        <span class="ping"></span>
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" class="relative">
+            <path
+                d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3.1.8.8-3-.2-.3a8.2 8.2 0 1 1 7 3.9Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.7.8-.8 1-.2.2-.3.2-.5.1-.2-.1-1-.4-2-1.2-.7-.6-1.2-1.4-1.4-1.6-.1-.2 0-.4.1-.5.1-.1.2-.3.4-.4.1-.2.2-.3.3-.4.1-.2 0-.4 0-.5 0-.1-.6-1.5-.9-2-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.2-.9.9-.9 2.2s1 2.6 1.1 2.7c.1.2 2 3 4.7 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.5-.6 1.8-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z" />
+        </svg>
+    </a>
+
+    <!-- MOBILE STICKY CTA -->
+    <div id="mobileCta" class="sm:hidden flex border-t border-line bg-paper/95 backdrop-blur px-4 py-3 gap-3">
+        <a href="tel:+919972779899"
+            class="flex-1 inline-flex items-center justify-center gap-1.5 btn-outline font-semibold text-sm py-3 rounded-full">
+            <span class="msi text-[18px]">call</span> Call
+        </a>
+        <a href="https://wa.me/919972779899?text=Hi%20SETfusion%2C%20I%27d%20like%20to%20get%20in%20touch."
+            target="_blank" rel="noopener"
+            class="flex-1 inline-flex items-center justify-center gap-1.5 btn-primary font-semibold text-sm py-3 rounded-full">
+            WhatsApp Us
+        </a>
+    </div>
+
+    <script>
+        // ---------- MENU ----------
+        document.getElementById('menuBtn').addEventListener('click', () => {
+            const m = document.getElementById('mobileMenu');
+            m.classList.toggle('hidden');
+            m.classList.toggle('flex');
+        });
+
+        // ---------- NAV SHADOW ----------
+        const nav = document.getElementById('mainNav');
+        window.addEventListener('scroll', () => {
+            nav.classList.toggle('nav-shadow', window.scrollY > 8);
+        });
+
+        // ---------- REVEAL ON SCROLL ----------
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.12 });
+        document.querySelectorAll('.reveal:not(.in)').forEach(el => revealObserver.observe(el));
+
+        // ---------- CONTACT FORM ----------
+        (function contactForm() {
+            const WHATSAPP_NUMBER = '919972779899';
+            const EMAIL_TO = 'info@setfusion.in';
+
+            const form = document.getElementById('contactForm');
+            const sendBtn = document.getElementById('sendBtn');
+            const formPanel = document.getElementById('formPanel');
+            const successPanel = document.getElementById('successPanel');
+            const successName = document.getElementById('successName');
+            const successWaLink = document.getElementById('successWaLink');
+            const resetFormBtn = document.getElementById('resetFormBtn');
+
+            const fields = {
+                name: document.getElementById('cf-name'),
+                phone: document.getElementById('cf-phone'),
+                email: document.getElementById('cf-email'),
+                interest: document.getElementById('cf-interest'),
+                message: document.getElementById('cf-message'),
+            };
+
+            function validate() {
+                let ok = true;
+
+                const nameGroup = fields.name.closest('.field-group');
+                const isNameValid = fields.name.value.trim().length > 1;
+                nameGroup.classList.toggle('invalid', !isNameValid);
+                if (!isNameValid) ok = false;
+
+                const phoneGroup = fields.phone.closest('.field-group');
+                const phoneDigits = fields.phone.value.replace(/\D/g, '');
+                const isPhoneValid = phoneDigits.length >= 10;
+                phoneGroup.classList.toggle('invalid', !isPhoneValid);
+                if (!isPhoneValid) ok = false;
+
+                const emailGroup = fields.email.closest('.field-group');
+                const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(fields.email.value.trim());
+                emailGroup.classList.toggle('invalid', !isEmailValid);
+                if (!isEmailValid) ok = false;
+
+                const msgGroup = fields.message.closest('.field-group');
+                const isMsgValid = fields.message.value.trim().length > 3;
+                msgGroup.classList.toggle('invalid', !isMsgValid);
+                if (!isMsgValid) ok = false;
+
+                return ok;
+            }
+
+            ['name', 'phone', 'email', 'message'].forEach(key => {
+                fields[key].addEventListener('input', () => {
+                    fields[key].closest('.field-group').classList.remove('invalid');
+                });
+            });
+
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                if (sendBtn.classList.contains('is-loading')) return;
+                if (!validate()) {
+                    const firstInvalid = form.querySelector('.field-group.invalid .field-input');
+                    if (firstInvalid) firstInvalid.focus();
+                    return;
+                }
+
+                const data = {
+                    name: fields.name.value.trim(),
+                    phone: fields.phone.value.trim(),
+                    email: fields.email.value.trim(),
+                    interest: fields.interest.value,
+                    message: fields.message.value.trim(),
+                };
+
+                sendBtn.classList.add('is-loading');
+                sendBtn.disabled = true;
+
+                const waText = encodeURIComponent(
+                    `Hi SETfusion, my name is ${data.name}.\n` +
+                    `Phone: ${data.phone}\n` +
+                    `Email: ${data.email}\n` +
+                    `Interested in: ${data.interest}\n` +
+                    `Message: ${data.message}`
+                );
+                const waLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${waText}`;
+
+                const emailSubject = encodeURIComponent(`New enquiry from ${data.name} — ${data.interest}`);
+                const emailBody = encodeURIComponent(
+                    `Name: ${data.name}\nPhone: ${data.phone}\nEmail: ${data.email}\nInterested in: ${data.interest}\n\nMessage:\n${data.message}`
+                );
+                const mailtoLink = `mailto:${EMAIL_TO}?subject=${emailSubject}&body=${emailBody}`;
+
+                // Simulate a short send delay so the loading state is visible, then
+                // hand the message to WhatsApp and the person's email client.
+                setTimeout(() => {
+                    window.open(waLink, '_blank', 'noopener');
+
+                    const mailFrame = document.createElement('a');
+                    mailFrame.href = mailtoLink;
+                    mailFrame.click();
+
+                    successName.textContent = data.name.split(' ')[0] || 'there';
+                    successWaLink.href = waLink;
+
+                    formPanel.querySelector('form').style.display = 'none';
+                    successPanel.classList.add('show');
+
+                    sendBtn.classList.remove('is-loading');
+                    sendBtn.disabled = false;
+                }, 1100);
+            });
+
+            resetFormBtn.addEventListener('click', () => {
+                form.reset();
+                successPanel.classList.remove('show');
+                formPanel.querySelector('form').style.display = 'block';
+                document.querySelectorAll('.field-group.invalid').forEach(g => g.classList.remove('invalid'));
+                fields.name.focus();
+            });
+        })();
+
+        // Disable right-click / F12 (matches other pages)
+        document.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+        document.addEventListener('keydown', function (e) { if (e.key === 'F12') e.preventDefault(); });
+    </script>
+
+</body>
+
+</html>

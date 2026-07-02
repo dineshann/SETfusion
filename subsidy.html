@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <title>Govt. Solar Subsidy — PM-Surya Ghar: Muft Bijli Yojana | SETfusion</title>
+    <meta name="description"
+        content="SETfusion is a BESCOM approved empanelled vendor for BESCOM, GESCOM, MESCOM, HESCOM and CHESCOM. Get up to ₹78,000 subsidy under PM-Surya Ghar: Muft Bijli Yojana — we handle the paperwork end-to-end.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Serif+Oriya:wght@400..700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,400,0..1,0" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        paper: '#ffffff',
+                        paper2: '#f9f9fe',
+                        ink: '#000000',
+                        ink2: '#4B5468',
+                        ink3: '#8E96A8',
+                        line: '#E3E7F0',
+                        navy: { DEFAULT: '#F4791A', deep: '#CC5E0A', soft: '#E7ECF9' },
+                        orange: { DEFAULT: '#F4791A', deep: '#CC5E0A', soft: '#FDEADB' },
+                        sky: { DEFAULT: '#1CADEE', deep: '#1181B8', soft: '#E4F5FC' },
+                        lime: { DEFAULT: '#8BC53F', soft: '#EEF7E1' },
+                    },
+                    fontFamily: {
+                        display: ['Noto Serif Oriya', 'serif'],
+                        body: ['Inter', 'sans-serif'],
+                        mono: ['Inter', 'sans-serif'],
+                    },
+                    borderRadius: { '4xl': '2rem' },
+                }
+            }
+        }
+    </script>
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #FAF9F6;
+        }
+
+        .eyebrow {
+            font-family: 'Inter', sans-serif;
+            letter-spacing: .05em;
+            font-weight: 600;
+        }
+
+        .sun-arc {
+            position: relative;
+        }
+
+        .sun-arc::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background:
+                radial-gradient(60% 60% at 78% 18%, rgba(244, 121, 26, 0.20) 0%, rgba(244, 121, 26, 0) 68%),
+                radial-gradient(45% 45% at 10% 92%, rgba(18, 44, 107, 0.14) 0%, rgba(18, 44, 107, 0) 70%);
+        }
+
+        .nav-shadow {
+            box-shadow: 0 1px 0 0 rgba(14, 21, 38, 0.06);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #FF9A3D 0%, #F4791A 55%, #CC5E0A 100%);
+            color: #ffffff;
+            transition: filter .18s ease, transform .18s ease;
+        }
+
+        .btn-primary:hover {
+            filter: brightness(1.06);
+        }
+
+        .btn-outline {
+            border: 1.5px solid #0E1526;
+            color: #0E1526;
+            transition: background-color .18s ease, color .18s ease;
+        }
+
+        .btn-outline:hover {
+            background: #0E1526;
+            color: #FAF9F6;
+        }
+
+        .btn-outline-light {
+            border: 1.5px solid rgba(250, 249, 246, 0.45);
+            color: #FAF9F6;
+            transition: background-color .18s ease;
+        }
+
+        .btn-outline-light:hover {
+            background: rgba(250, 249, 246, 0.14);
+        }
+
+        .card-soft {
+            box-shadow: 0 1px 2px rgba(14, 21, 38, 0.04), 0 14px 34px -18px rgba(14, 21, 38, 0.26);
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(14px);
+            transition: opacity .6s ease, transform .6s ease;
+        }
+
+        .reveal.in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .num {
+            font-variant-numeric: tabular-nums;
+        }
+
+        ::selection {
+            background: #F4791A;
+            color: #FAF9F6;
+        }
+
+        /* ---------- FAQ ACCORDION ---------- */
+        .faq-a {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height .35s ease;
+        }
+
+        .faq-item.open .faq-a {
+            max-height: 260px;
+        }
+
+        .faq-chevron {
+            transition: transform .3s ease;
+        }
+
+        .faq-item.open .faq-chevron {
+            transform: rotate(180deg);
+            color: #F4791A;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                transition-duration: 0.001ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
+        /* Material Symbols baseline */
+        .msi {
+            font-family: 'Material Symbols Outlined';
+            font-weight: 400;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .msi-fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        /* ---------- SUBSIDY HERO ---------- */
+        .subsidyHero {
+            position: relative;
+            min-height: 640px;
+            width: 100%;
+            overflow: hidden;
+            background: linear-gradient(160deg, #12315E 0%, #0E1526 100%);
+        }
+
+        .subsidyHero .hero-media {
+            position: absolute;
+            inset: -6%;
+            overflow: hidden;
+        }
+
+        .subsidyHero .hero-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: .38;
+        }
+
+        .subsidyHero .hero-scrim {
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(180deg, rgba(10, 14, 26, 0.55) 0%, rgba(10, 14, 26, 0.35) 32%, rgba(10, 14, 26, 0.75) 100%),
+                linear-gradient(90deg, rgba(10, 14, 26, 0.65) 0%, rgba(10, 14, 26, 0.1) 55%, rgba(10, 14, 26, 0.2) 100%);
+        }
+
+        /* ---------- TIER CARDS ---------- */
+        .tier-card {
+            transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+        }
+
+        .tier-card:hover {
+            transform: translateY(-6px);
+        }
+
+        .tier-featured {
+            background: linear-gradient(160deg, #12315E 0%, #0E1526 100%);
+        }
+
+        /* ---------- ELIGIBILITY TABLE ---------- */
+        .elig-row:nth-child(odd) {
+            background: #FAF9F6;
+        }
+
+        /* ---------- FLOATING WHATSAPP ---------- */
+        #floatWa {
+            position: fixed;
+            right: 22px;
+            bottom: 22px;
+            z-index: 60;
+            width: 58px;
+            height: 58px;
+            border-radius: 999px;
+            background: #22C55E;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 26px -6px rgba(34, 197, 94, 0.55);
+            transition: transform .18s ease;
+        }
+
+        #floatWa:hover {
+            transform: scale(1.06);
+        }
+
+        #floatWa .ping {
+            position: absolute;
+            inset: 0;
+            border-radius: 999px;
+            background: #22C55E;
+            opacity: .6;
+            animation: waPing 2.2s cubic-bezier(0, 0, 0.2, 1) infinite;
+        }
+
+        @keyframes waPing {
+
+            75%,
+            100% {
+                transform: scale(1.7);
+                opacity: 0;
+            }
+        }
+
+        /* ---------- MOBILE STICKY CTA ---------- */
+        #mobileCta {
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 55;
+        }
+    </style>
+</head>
+
+<body class="font-body text-ink bg-paper antialiased pb-[72px] sm:pb-0">
+
+    <!-- NAVBAR (dedicated landing page — no site nav, single conversion path) -->
+    <nav id="mainNav" class="fixed top-0 left-0 w-full z-50 bg-white border-b border-line">
+        <div class="max-w-7xl mx-auto px-6 lg:px-10 h-[76px] flex items-center justify-between">
+            <a href="" class="flex items-center gap-2.5 shrink-0" aria-label="SETfusion">
+                <img src="https://demo.amortree.com/SETfusion/logo.avif" alt="SETfusion logo"
+                    class="w-[190px] sm:w-[220px] object-contain" />
+            </a>
+
+            <div class="flex items-center gap-3 sm:gap-5">
+                <a href="tel:+919972779899"
+                    class="hidden sm:inline-flex items-center gap-2 text-sm font-semibold text-ink2 hover:text-ink transition-colors">
+                    <span class="msi text-[19px]">call</span>
+                    +91 99727 79899
+                </a>
+                <a href="https://wa.me/919972779899?text=Hi%20SETfusion%2C%20I%27d%20like%20to%20apply%20for%20the%20PM-Surya%20Ghar%20subsidy."
+                    target="_blank" rel="noopener"
+                    class="inline-flex items-center gap-1.5 btn-primary text-xs sm:text-sm font-semibold px-4 sm:px-5 py-2.5 rounded-full">
+                    Apply for Subsidy
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="subsidyHero" aria-label="PM-Surya Ghar subsidy overview">
+        <div class="hero-media">
+            <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?q=80&w=1800&auto=format&fit=crop"
+                alt="Rooftop solar array under a clear sky"
+                onerror="this.parentElement.style.background='linear-gradient(135deg,#12315E,#0E1526)';this.remove()">
+        </div>
+        <div class="hero-scrim"></div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 pt-[150px] pb-20">
+            <p class="reveal in eyebrow text-xs text-orange uppercase mb-6 tracking-[0.15em]">PM‑Surya Ghar: Muft
+                Bijli Yojana</p>
+            <h1
+                class="reveal in font-display font-medium text-[36px] sm:text-[50px] lg:text-[60px] leading-[1.06] tracking-tight text-paper max-w-3xl">
+                Up to <span class="italic text-orange">₹78,000</span> government subsidy on your rooftop solar
+                system.
+            </h1>
+            <p class="reveal in mt-6 text-[17px] text-paper/80 max-w-xl leading-relaxed">
+                Over 1 crore households have registered under the central Surya Ghar scheme. As a BESCOM approved
+                empanelled vendor, SETfusion sizes your system, files the paperwork and gets the subsidy credited —
+                you don't chase a single form.
+            </p>
+            <div class="reveal in mt-9 flex flex-wrap gap-4">
+                <a href="https://wa.me/919972779899?text=Hi%20SETfusion%2C%20I%27d%20like%20to%20apply%20for%20the%20PM-Surya%20Ghar%20subsidy."
+                    target="_blank" rel="noopener"
+                    class="inline-flex items-center gap-2 btn-primary font-semibold px-7 py-3.5 rounded-full">
+                    Apply for Subsidy
+                    <span class="msi text-[17px]">arrow_forward</span>
+                </a>
+                <a href="#tiers"
+                    class="inline-flex items-center gap-2 btn-outline-light font-semibold px-7 py-3.5 rounded-full">
+                    See Subsidy Amounts
+                </a>
+            </div>
+
+            <div class="reveal in mt-14 flex flex-wrap items-center gap-x-8 gap-y-4">
+                <div>
+                    <p class="font-display num text-[30px] font-medium leading-none text-paper"><span data-count="1"
+                            data-suffix=" Cr+">0</span></p>
+                    <p class="mt-1.5 text-[11px] text-paper/55 eyebrow uppercase tracking-wide">Registrations under
+                        the scheme</p>
+                </div>
+                <div class="w-px h-9 bg-white/10 hidden sm:block"></div>
+                <div>
+                    <p class="font-display num text-[30px] font-medium leading-none text-orange">₹<span data-count="78"
+                            data-suffix=",000">0</span></p>
+                    <p class="mt-1.5 text-[11px] text-paper/55 eyebrow uppercase tracking-wide">Max residential
+                        subsidy</p>
+                </div>
+                <div class="w-px h-9 bg-white/10 hidden sm:block"></div>
+                <div>
+                    <p class="font-display num text-[30px] font-medium leading-none text-paper"><span
+                            data-count="5">0</span></p>
+                    <p class="mt-1.5 text-[11px] text-paper/55 eyebrow uppercase tracking-wide">DISCOMs we're
+                        empanelled with</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EMPANELLED VENDOR STRIP -->
+    <section class="py-10" style="background-color: rgb(186, 85, 7);">
+        <div class="max-w-7xl mx-auto px-6 lg:px-10">
+            <p class="reveal text-center text-paper text-sm sm:text-base font-semibold leading-relaxed">
+                BESCOM Approved Empanelled Vendor for
+                <span class="whitespace-nowrap">BESCOM</span>,
+                <span class="whitespace-nowrap">GESCOM</span>,
+                <span class="whitespace-nowrap">MESCOM</span>,
+                <span class="whitespace-nowrap">HESCOM</span> &amp;
+                <span class="whitespace-nowrap">CHESCOM</span>
+            </p>
+        </div>
+    </section>
+
+    <!-- SUBSIDY TIERS -->
+    <section id="tiers" class="bg-paper py-24 lg:py-28">
+        <div class="max-w-7xl mx-auto px-6 lg:px-10">
+            <div class="reveal text-center max-w-2xl mx-auto mb-14">
+                <p class="eyebrow text-xs text-orange-deep uppercase mb-3">Residential rooftop subsidy</p>
+                <h2 class="font-display text-[34px] lg:text-[42px] font-medium tracking-tight text-ink leading-none">
+                    What You Get, by System Size</h2>
+                <p class="mt-4 text-ink2 text-[15px] leading-relaxed">Central subsidy under Surya Ghar for
+                    residential households, disbursed directly to your bank account after commissioning and
+                    net-metering.</p>
+            </div>
+
+            <div class="grid sm:grid-cols-3 gap-6">
+                <div class="reveal tier-card rounded-4xl border border-line bg-paper2 p-8 card-soft">
+                    <p class="eyebrow text-xs text-ink3 uppercase mb-4">Up to 1 kW</p>
+                    <p class="font-display text-[38px] font-medium text-navy leading-none">₹30,000</p>
+                    <p class="mt-3 text-sm text-ink3 leading-relaxed">Suits homes using up to ~150 units/month.</p>
+                </div>
+                <div class="reveal tier-card rounded-4xl border border-line bg-paper2 p-8 card-soft">
+                    <p class="eyebrow text-xs text-ink3 uppercase mb-4">Up to 2 kW</p>
+                    <p class="font-display text-[38px] font-medium text-navy leading-none">₹60,000</p>
+                    <p class="mt-3 text-sm text-ink3 leading-relaxed">Suits homes using ~150–300 units/month.</p>
+                </div>
+                <div
+                    class="reveal tier-card tier-featured rounded-4xl p-8 card-soft text-paper relative overflow-hidden">
+                    <div class="absolute -top-14 -right-14 w-48 h-48 rounded-full bg-orange/15 blur-3xl"></div>
+                    <p class="relative eyebrow text-xs text-orange uppercase mb-4">3 kW – 10 kW</p>
+                    <p class="relative font-display text-[38px] font-medium leading-none">₹78,000</p>
+                    <p class="relative mt-3 text-sm text-paper/70 leading-relaxed">Subsidy is capped at ₹78,000 for
+                        all systems larger than 3 kW.</p>
+                </div>
+            </div>
+
+            <p class="reveal mt-8 text-xs text-ink3 text-center max-w-2xl mx-auto leading-relaxed">
+                Figures shown are the central government benchmark subsidy for residential rooftop systems.
+                Final eligibility and amount are confirmed against your sanctioned load and DISCOM during your free
+                site survey.
+            </p>
+        </div>
+    </section>
+
+    <!-- ELIGIBILITY TABLE -->
+    <section id="eligibility" class="bg-paper2 py-24 lg:py-28 border-y border-line">
+        <div class="max-w-5xl mx-auto px-6 lg:px-10">
+            <div class="reveal flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-12">
+                <div>
+                    <p class="eyebrow text-xs text-orange-deep uppercase mb-3">Sized to your usage</p>
+                    <h2
+                        class="font-display text-[32px] lg:text-[40px] font-medium tracking-tight text-ink leading-none">
+                        Find Your Suitable Plant Capacity</h2>
+                </div>
+                <p class="text-sm text-ink2 max-w-sm">Match your average monthly electricity bill (in units) against
+                    the table below for a rough starting size — we confirm the exact figure on site.</p>
+            </div>
+
+            <div class="reveal rounded-4xl border border-line overflow-hidden card-soft bg-paper">
+                <div class="grid grid-cols-2">
+                    <div class="px-7 py-5 bg-ink">
+                        <p class="eyebrow text-xs text-paper/70 uppercase">Average Monthly Consumption</p>
+                    </div>
+                    <div class="px-7 py-5 bg-ink border-l border-white/10">
+                        <p class="eyebrow text-xs text-paper/70 uppercase">Suitable Rooftop Capacity</p>
+                    </div>
+                </div>
+                <div class="elig-row grid grid-cols-2 items-center">
+                    <div class="px-7 py-6">
+                        <p class="font-display text-[20px] text-ink">0 – 150 units</p>
+                    </div>
+                    <div class="px-7 py-6 border-l border-line">
+                        <p class="font-display text-[20px] text-navy">1 – 2 kW</p>
+                    </div>
+                </div>
+                <div class="elig-row grid grid-cols-2 items-center">
+                    <div class="px-7 py-6">
+                        <p class="font-display text-[20px] text-ink">150 – 300 units</p>
+                    </div>
+                    <div class="px-7 py-6 border-l border-line">
+                        <p class="font-display text-[20px] text-navy">2 – 3 kW</p>
+                    </div>
+                </div>
+                <div class="elig-row grid grid-cols-2 items-center">
+                    <div class="px-7 py-6">
+                        <p class="font-display text-[20px] text-ink">Above 300 units</p>
+                    </div>
+                    <div class="px-7 py-6 border-l border-line">
+                        <p class="font-display text-[20px] text-navy">Above 3 kW</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reveal mt-8 text-center">
+                <a href="index.html#calculator"
+                    class="inline-flex items-center gap-2 btn-outline font-semibold px-7 py-3.5 rounded-full">
+                    Or Use Our Savings Calculator
+                    <span class="msi text-[17px]">arrow_forward</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- GHS / RWA SUBSIDY -->
+    <section id="ghs" class="bg-paper py-24 lg:py-28">
+        <div class="max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-[0.9fr_1.1fr] gap-14 items-center">
+            <div>
+                <p class="reveal eyebrow text-xs text-orange-deep uppercase mb-3">For apartments &amp; layouts</p>
+                <h2
+                    class="reveal font-display text-[32px] lg:text-[40px] font-medium tracking-tight leading-[1.1] text-ink">
+                    Subsidy for Group Housing Societies &amp; RWAs.
+                </h2>
+                <p class="reveal mt-6 text-ink2 leading-relaxed">
+                    Housing societies and Resident Welfare Associations get a separate subsidy for solar on common
+                    facilities — including EV charging infrastructure — on top of what individual residents claim
+                    for their own rooftop plants.
+                </p>
+                <div class="reveal mt-8">
+                    <a href="https://wa.me/919972779899?text=Hi%20SETfusion%2C%20our%20housing%20society%2FRWA%20would%20like%20to%20apply%20for%20the%20common-facility%20solar%20subsidy."
+                        target="_blank" rel="noopener"
+                        class="inline-flex items-center gap-2 btn-primary font-semibold px-7 py-3.5 rounded-full">
+                        Apply as a Society
+                        <span class="msi text-[17px]">arrow_forward</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="reveal rounded-4xl p-9 lg:p-11 text-paper relative overflow-hidden card-soft"
+                style="background: linear-gradient(160deg,#12315E 0%,#0E1526 100%);">
+                <div class="absolute -bottom-16 -left-16 w-56 h-56 rounded-full bg-orange/10 blur-3xl"></div>
+                <div class="relative flex items-center gap-4 mb-7">
+                    <div class="w-12 h-12 rounded-full bg-orange/15 flex items-center justify-center text-orange">
+                        <span class="msi text-[24px]">apartment</span>
+                    </div>
+                    <p class="eyebrow text-xs text-orange uppercase">GHS / RWA Common Facilities</p>
+                </div>
+                <p class="relative font-display text-[42px] lg:text-[50px] font-medium leading-none">₹18,000<span
+                        class="text-[20px] font-body font-medium text-paper/60"> / kW</span></p>
+                <p class="relative mt-4 text-paper/75 text-sm leading-relaxed max-w-md">
+                    For common facilities including EV charging, up to 500 kW total capacity, calculated at 3 kW per
+                    house. This upper limit is inclusive of any individual rooftop plants already installed by
+                    residents within the same society.
+                </p>
+                <div class="relative mt-8 grid grid-cols-2 gap-5 pt-6 border-t border-white/10">
+                    <div>
+                        <p class="font-display text-[22px] font-medium leading-none">500 kW</p>
+                        <p class="mt-1.5 text-[11px] text-paper/55 eyebrow uppercase tracking-wide">Capacity cap
+                        </p>
+                    </div>
+                    <div>
+                        <p class="font-display text-[22px] font-medium leading-none">3 kW</p>
+                        <p class="mt-1.5 text-[11px] text-paper/55 eyebrow uppercase tracking-wide">Per house,
+                            basis of calc</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW WE FILE YOUR SUBSIDY -->
+    <section id="process" class="bg-paper2 py-24 lg:py-28 border-t border-line">
+        <div class="max-w-7xl mx-auto px-6 lg:px-10">
+            <div class="reveal text-center max-w-xl mx-auto mb-16">
+                <p class="eyebrow text-xs text-orange-deep uppercase mb-3">Enquiry to disbursal</p>
+                <h2 class="font-display text-[34px] lg:text-[42px] font-medium tracking-tight text-ink leading-none">
+                    How We File Your Subsidy Claim</h2>
+            </div>
+
+            <div class="relative grid sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-6">
+                <div class="hidden lg:block absolute top-6 left-[1%] right-[15%] h-px bg-line"></div>
+
+                <div class="reveal relative">
+                    <div
+                        class="relative z-10 w-12 h-12 rounded-full bg-ink text-paper flex items-center justify-center font-display text-lg mb-5">
+                        01</div>
+                    <p class="font-semibold text-ink text-sm mb-1.5">Bill &amp; site details</p>
+                    <p class="text-sm text-ink3 leading-relaxed">Share your average monthly bill and DISCOM on
+                        WhatsApp — we confirm rough eligibility on the spot.</p>
+                </div>
+                <div class="reveal relative">
+                    <div
+                        class="relative z-10 w-12 h-12 rounded-full bg-ink text-paper flex items-center justify-center font-display text-lg mb-5">
+                        02</div>
+                    <p class="font-semibold text-ink text-sm mb-1.5">Free site survey &amp; sizing</p>
+                    <p class="text-sm text-ink3 leading-relaxed">We size the plant to your sanctioned load so the
+                        subsidy tier and system size line up correctly.</p>
+                </div>
+                <div class="reveal relative">
+                    <div
+                        class="relative z-10 w-12 h-12 rounded-full bg-ink text-paper flex items-center justify-center font-display text-lg mb-5">
+                        03</div>
+                    <p class="font-semibold text-ink text-sm mb-1.5">Install &amp; commission</p>
+                    <p class="text-sm text-ink3 leading-relaxed">Our own team installs and commissions the system,
+                        then applies for net-metering with your DISCOM.</p>
+                </div>
+                <div class="reveal relative">
+                    <div
+                        class="relative z-10 w-12 h-12 rounded-full bg-ink text-paper flex items-center justify-center font-display text-lg mb-5">
+                        04</div>
+                    <p class="font-semibold text-ink text-sm mb-1.5">Subsidy application filed</p>
+                    <p class="text-sm text-ink3 leading-relaxed">We file the Surya Ghar subsidy claim on the national
+                        portal on your behalf, using the commissioning report.</p>
+                </div>
+                <div class="reveal relative">
+                    <div
+                        class="relative z-10 w-12 h-12 rounded-full bg-orange text-paper flex items-center justify-center font-display text-lg mb-5">
+                        05</div>
+                    <p class="font-semibold text-ink text-sm mb-1.5">Subsidy credited</p>
+                    <p class="text-sm text-ink3 leading-relaxed">Once approved, the subsidy is credited directly to
+                        your bank account — we track the status until it lands.</p>
+                </div>
+            </div>
+
+            <div class="reveal mt-14 text-center">
+                <a href="https://wa.me/919972779899?text=Hi%20SETfusion%2C%20I%27d%20like%20to%20start%20with%20a%20free%20site%20survey%20for%20the%20subsidy%20scheme."
+                    target="_blank" rel="noopener"
+                    class="inline-flex items-center gap-2 btn-outline font-semibold px-7 py-3.5 rounded-full">
+                    Start With a Free Site Survey
+                    <span class="msi text-[17px]">arrow_forward</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="bg-paper py-24 lg:py-28">
+        <div class="max-w-4xl mx-auto px-6 lg:px-10">
+            <div class="reveal text-center mb-14">
+                <p class="eyebrow text-xs text-orange-deep uppercase mb-3">Before you apply</p>
+                <h2 class="font-display text-[32px] lg:text-[40px] font-medium tracking-tight text-ink leading-none">
+                    Subsidy Questions, Answered</h2>
+            </div>
+
+            <div id="faqList" class="space-y-3">
+                <div class="faq-item reveal rounded-2xl border border-line bg-paper2 overflow-hidden">
+                    <button type="button"
+                        class="faq-q w-full flex items-center justify-between gap-4 text-left px-6 py-5">
+                        <span class="font-semibold text-ink text-[15px]">How much subsidy will I actually
+                            get?</span>
+                        <span class="msi faq-chevron text-ink3 shrink-0">expand_more</span>
+                    </button>
+                    <div class="faq-a px-6 text-sm text-ink2 leading-relaxed">
+                        <p class="pb-5">₹30,000 for a 1kW system, ₹60,000 for 2kW, and a flat ₹78,000 for any
+                            residential system from 3kW up to 10kW — the subsidy is capped at ₹78,000 beyond 3kW. Your
+                            exact figure depends on sanctioned load and DISCOM, confirmed at survey.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item reveal rounded-2xl border border-line bg-paper2 overflow-hidden">
+                    <button type="button"
+                        class="faq-q w-full flex items-center justify-between gap-4 text-left px-6 py-5">
+                        <span class="font-semibold text-ink text-[15px]">Which DISCOMs are you empanelled
+                            with?</span>
+                        <span class="msi faq-chevron text-ink3 shrink-0">expand_more</span>
+                    </button>
+                    <div class="faq-a px-6 text-sm text-ink2 leading-relaxed">
+                        <p class="pb-5">SETfusion is a BESCOM approved empanelled vendor for BESCOM, GESCOM, MESCOM,
+                            HESCOM and CHESCOM — so wherever you are in Karnataka, we can file your subsidy claim
+                            with the correct utility.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item reveal rounded-2xl border border-line bg-paper2 overflow-hidden">
+                    <button type="button"
+                        class="faq-q w-full flex items-center justify-between gap-4 text-left px-6 py-5">
+                        <span class="font-semibold text-ink text-[15px]">Do I have to apply on the government portal
+                            myself?</span>
+                        <span class="msi faq-chevron text-ink3 shrink-0">expand_more</span>
+                    </button>
+                    <div class="faq-a px-6 text-sm text-ink2 leading-relaxed">
+                        <p class="pb-5">No — as an empanelled vendor we handle registration, net-metering
+                            coordination and the subsidy application end-to-end using your commissioning report. You
+                            just need to share basic KYC and bank details.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item reveal rounded-2xl border border-line bg-paper2 overflow-hidden">
+                    <button type="button"
+                        class="faq-q w-full flex items-center justify-between gap-4 text-left px-6 py-5">
+                        <span class="font-semibold text-ink text-[15px]">Can our housing society claim a separate
+                            subsidy?</span>
+                        <span class="msi faq-chevron text-ink3 shrink-0">expand_more</span>
+                    </button>
+                    <div class="faq-a px-6 text-sm text-ink2 leading-relaxed">
+                        <p class="pb-5">Yes. Group Housing Societies and RWAs can claim ₹18,000 per kW for solar on
+                            common facilities including EV charging, up to 500kW total (at 3kW per house) — inclusive
+                            of any individual rooftop plants already installed by residents.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item reveal rounded-2xl border border-line bg-paper2 overflow-hidden">
+                    <button type="button"
+                        class="faq-q w-full flex items-center justify-between gap-4 text-left px-6 py-5">
+                        <span class="font-semibold text-ink text-[15px]">How long after commissioning does the
+                            subsidy get credited?</span>
+                        <span class="msi faq-chevron text-ink3 shrink-0">expand_more</span>
+                    </button>
+                    <div class="faq-a px-6 text-sm text-ink2 leading-relaxed">
+                        <p class="pb-5">Once net-metering is approved and the claim is filed, disbursal timing is
+                            governed by the national portal and your DISCOM. We track the application status and keep
+                            you updated until it's credited to your account.</p>
+                    </div>
+                </div>
+            </div>
+
+            <p class="reveal text-center text-sm text-ink3 mt-10">
+                Still have a question?
+                <a href="https://wa.me/919972779899" target="_blank" rel="noopener"
+                    class="text-orange-deep font-semibold hover:underline">Ask us on WhatsApp</a>
+            </p>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="relative py-24 overflow-hidden" style="background-color: rgb(186, 85, 7);">
+        <div class="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-orange/10 blur-3xl"></div>
+        <div class="absolute -bottom-24 -left-24 w-96 h-96 rounded-full bg-sky/10 blur-3xl"></div>
+        <div class="relative max-w-4xl mx-auto px-6 text-center">
+            <h2
+                class="reveal font-display text-[32px] lg:text-[46px] font-medium text-paper tracking-tight leading-[1.1]">
+                Let's find out what you're eligible for.
+            </h2>
+            <p class="reveal mt-5 text-paper/70 max-w-xl mx-auto">Send us your average monthly bill and DISCOM on
+                WhatsApp — we'll confirm your subsidy tier and book a free site survey.</p>
+            <div class="reveal mt-9 flex flex-wrap justify-center gap-4">
+                <a href="https://wa.me/919972779899?text=Hi%20SETfusion%2C%20I%27d%20like%20to%20apply%20for%20the%20PM-Surya%20Ghar%20subsidy."
+                    target="_blank" rel="noopener"
+                    class="inline-flex items-center gap-2 btn-primary font-semibold px-7 py-3.5 rounded-full">Apply
+                    for Subsidy</a>
+                <a href="tel:+919972779899"
+                    class="inline-flex items-center gap-2 btn-outline-light font-semibold px-7 py-3.5 rounded-full">
+                    <span class="msi text-[18px]">call</span>
+                    Call +91 99727 79899
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER (dedicated landing page — brand + contact only, no cross-site links) -->
+    <footer id="contact" class="bg-ink pt-16 pb-8">
+        <div class="max-w-5xl mx-auto px-6 lg:px-10 grid sm:grid-cols-[1.2fr_1fr] gap-10 sm:gap-16 items-start">
+            <div>
+                <div class="flex items-center gap-2.5 mb-4">
+                    <span class="font-display font-medium text-paper text-xl">SET<span
+                            class="italic text-orange">fusion</span></span>
+                </div>
+                <p class="text-ink3 text-sm leading-relaxed max-w-sm">Your Desire. Our Innovations.<br>Solar power
+                    electronics, manufactured and installed in Bengaluru since 2015. BESCOM approved empanelled
+                    vendor for BESCOM, GESCOM, MESCOM, HESCOM &amp; CHESCOM.</p>
+            </div>
+
+            <div>
+                <p class="text-paper font-semibold text-sm mb-4">Talk to Us</p>
+                <ul class="space-y-2.5 text-sm text-ink3">
+                    <li>#9, 1st Floor, RC Pura road, Behind BEL Colony, Doddabommasandra, Bangalore, Karnataka,
+                        India - 560097.</li>
+                    <li><a href="tel:+919972779899" class="hover:text-paper transition">+91 99727 79899</a></li>
+                    <li><a href="mailto:info@setfusion.in" class="hover:text-paper transition">info@setfusion.in</a>
+                    </li>
+                    <li>
+                        <a href="https://wa.me/919972779899?text=Hi%20SETfusion%2C%20I%27d%20like%20to%20apply%20for%20the%20PM-Surya%20Ghar%20subsidy."
+                            target="_blank" rel="noopener"
+                            class="inline-flex items-center gap-1.5 text-orange-deep hover:text-orange font-semibold transition mt-1">
+                            Chat on WhatsApp
+                            <span class="msi text-[16px]">arrow_forward</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div
+            class="max-w-5xl mx-auto px-6 lg:px-10 mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row justify-between gap-4 text-xs text-ink3">
+            <p>© 2026 SETfusion. All rights reserved. Crafted with <span class="text-red-500">♥</span> by <a
+                    href="http://amortree.com/" class="hover:text-white">amortree Tech</a> & <a
+                    href="https://www.eonstrategy.in/" class="hover:text-white">eon</a></p>
+            <p class="eyebrow">BIS · ISO · MNRE Empanelled · MSME Registered</p>
+        </div>
+    </footer>
+
+    <!-- FLOATING WHATSAPP -->
+    <a id="floatWa"
+        href="https://wa.me/919972779899?text=Hi%20SETfusion%2C%20I%27d%20like%20to%20apply%20for%20the%20PM-Surya%20Ghar%20subsidy."
+        target="_blank" rel="noopener" aria-label="Chat with SETfusion on WhatsApp">
+        <span class="ping"></span>
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" class="relative">
+            <path
+                d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3.1.8.8-3-.2-.3a8.2 8.2 0 1 1 7 3.9Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.7.8-.8 1-.2.2-.3.2-.5.1-.2-.1-1-.4-2-1.2-.7-.6-1.2-1.4-1.4-1.6-.1-.2 0-.4.1-.5.1-.1.2-.3.4-.4.1-.2.2-.3.3-.4.1-.2 0-.4 0-.5 0-.1-.6-1.5-.9-2-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.2-.9.9-.9 2.2s1 2.6 1.1 2.7c.1.2 2 3 4.7 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.5-.6 1.8-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z" />
+        </svg>
+    </a>
+
+    <!-- MOBILE STICKY CTA -->
+    <div id="mobileCta" class="sm:hidden flex border-t border-line bg-paper/95 backdrop-blur px-4 py-3 gap-3">
+        <a href="tel:+919972779899"
+            class="flex-1 inline-flex items-center justify-center gap-1.5 btn-outline font-semibold text-sm py-3 rounded-full">
+            <span class="msi text-[18px]">call</span> Call
+        </a>
+        <a href="https://wa.me/919972779899?text=Hi%20SETfusion%2C%20I%27d%20like%20to%20apply%20for%20the%20PM-Surya%20Ghar%20subsidy."
+            target="_blank" rel="noopener"
+            class="flex-1 inline-flex items-center justify-center gap-1.5 btn-primary font-semibold text-sm py-3 rounded-full">
+            Apply for Subsidy
+        </a>
+    </div>
+
+    <script>
+        // ---------- NAV SHADOW ----------
+        const nav = document.getElementById('mainNav');
+        window.addEventListener('scroll', () => {
+            nav.classList.toggle('nav-shadow', window.scrollY > 8);
+        });
+
+        // ---------- COUNTERS ----------
+        const counters = document.querySelectorAll('[data-count]');
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                const el = entry.target;
+                const target = +el.dataset.count;
+                const suffix = el.dataset.suffix || '';
+                let start = null;
+                const dur = 1200;
+                function step(ts) {
+                    if (!start) start = ts;
+                    const p = Math.min((ts - start) / dur, 1);
+                    el.textContent = Math.round(p * target) + suffix;
+                    if (p < 1) requestAnimationFrame(step);
+                }
+                requestAnimationFrame(step);
+                counterObserver.unobserve(el);
+            });
+        }, { threshold: 0.4 });
+        counters.forEach(el => counterObserver.observe(el));
+
+        // ---------- REVEAL ON SCROLL ----------
+        function observeReveals() {
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('in');
+                        revealObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.12 });
+            document.querySelectorAll('.reveal:not(.in)').forEach(el => revealObserver.observe(el));
+        }
+        observeReveals();
+
+        // hero entrance
+        if (typeof gsap !== 'undefined') {
+            gsap.fromTo('.subsidyHero .reveal', { opacity: 0, y: 22 }, {
+                opacity: 1, y: 0, duration: .8, ease: 'power3.out', stagger: .08, delay: .15,
+                onComplete: () => document.querySelectorAll('.subsidyHero .reveal').forEach(el => el.classList.add('in'))
+            });
+        }
+
+        // ---------- FAQ ACCORDION ----------
+        (function faqAccordion() {
+            const items = document.querySelectorAll('.faq-item');
+            items.forEach(item => {
+                item.querySelector('.faq-q').addEventListener('click', () => {
+                    const isOpen = item.classList.contains('open');
+                    items.forEach(i => i.classList.remove('open'));
+                    if (!isOpen) item.classList.add('open');
+                });
+            });
+        })();
+
+        // Disable right-click / F12 (matches index.html)
+        document.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+        document.addEventListener('keydown', function (e) { if (e.key === 'F12') e.preventDefault(); });
+    </script>
+
+</body>
+
+</html>
