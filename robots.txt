@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /index-final.html
+
+Sitemap: https://setfusion.in/sitemap.xml
