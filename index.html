@@ -411,6 +411,49 @@
             bottom: 0;
             z-index: 55;
         }
+        
+        /* ---------- LOGO MARQUEE (Who we work with) ---------- */
+        .logo-marquee {
+            position: relative;
+            overflow: hidden;
+            -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%);
+            mask-image: linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%);
+        }
+
+        .logo-marquee-track {
+            display: flex;
+            align-items: stretch;
+            gap: 1.25rem;
+            width: max-content;
+            will-change: transform;
+        }
+
+        .logo-marquee-item {
+            flex: 0 0 auto;
+            width: 220px;
+            height: 110px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #E3E7F0;
+            border-radius: 1rem;
+            padding: 1.25rem 1.5rem;
+            transition: border-color .18s ease;
+        }
+
+        .logo-marquee-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .logo-marquee-track {
+                transform: none !important;
+                animation: none !important;
+                overflow-x: auto;
+            }
+        }
     </style>
 </head>
 
@@ -541,7 +584,7 @@
                         class="font-display text-[36px] lg:text-[44px] font-bold tracking-tight text-ink leading-none">
                         Our Products</h2>
                 </div>
-                <a href="#" id="viewAllBtn"
+                <a href="products.html" id=""
                     class="inline-flex items-center gap-1.5 text-ink font-semibold text-sm border-b-2 border-orange pb-1 w-fit hover:gap-2.5 transition-all">
                     View all products
                     <span class="msi text-[16px]">arrow_forward</span>
@@ -895,19 +938,27 @@
                     with</h2>
             </div>
 
-            <div class="reveal grid grid-cols-2 sm:grid-cols-3 gap-5 mb-12">
-                <div
-                    class="group flex items-center justify-center gap-3 rounded-2xl border border-line px-6 py-7 card-soft hover:border-orange/30 transition-colors">
-                    <img src="img/ITC-Logo.png" alt="">
-                </div>
-                <div
-                    class="group flex items-center justify-center gap-3 rounded-2xl border border-line bg-ink px-6 py-7 card-soft hover:border-navy/30 transition-colors">
-                    <img src="img/vaishnavi_logo.webp" alt="Vishnavi Group logo"
-                        class="w-full h-full object-contain" />
-                </div>
-                <div class="group flex items-center justify-center gap-3 rounded-2xl border border-line px-6 py-7 card-soft hover:border-sky/30 transition-colors"
-                    style="background-color: #ffffff">
-                    <img src="img/ecosoch-logo.png" alt="">
+            <div class="reveal logo-marquee mb-12" id="logoMarquee">
+                <div class="logo-marquee-track" id="logoMarqueeTrack">
+                    <div class="logo-marquee-item card-soft hover:border-orange/30">
+                        <img src="img/ITC-Logo.png" alt="ITC logo">
+                    </div>
+                    <div class="logo-marquee-item bg-ink card-soft hover:border-navy/30">
+                        <img src="img/vaishnavi_logo.webp" alt="Vaishnavi Group logo">
+                    </div>
+                    <div class="logo-marquee-item card-soft hover:border-sky/30" style="background-color:#ffffff">
+                        <img src="img/ecosoch-logo.png" alt="Ecosoch logo">
+                    </div>
+                    <!-- duplicate set, seamless loop target -->
+                    <div class="logo-marquee-item card-soft hover:border-orange/30" aria-hidden="true">
+                        <img src="img/ITC-Logo.png" alt="" aria-hidden="true">
+                    </div>
+                    <div class="logo-marquee-item bg-ink card-soft hover:border-navy/30" aria-hidden="true">
+                        <img src="img/vaishnavi_logo.webp" alt="" aria-hidden="true">
+                    </div>
+                    <div class="logo-marquee-item card-soft hover:border-sky/30" style="background-color:#ffffff" aria-hidden="true">
+                        <img src="img/ecosoch-logo.png" alt="" aria-hidden="true">
+                    </div>
                 </div>
             </div>
 
@@ -1243,7 +1294,7 @@
             const t = tones[p.tone];
             const photo = sitePhotos[i % sitePhotos.length];
             return `
-    <div class="reveal in group rounded-3xl border border-line bg-paper overflow-hidden card-soft hover:-translate-y-1 transition-transform duration-300">
+    <a href="solar-water-pumping.html" class="reveal in group block rounded-3xl border border-line bg-paper overflow-hidden card-soft hover:-translate-y-1 transition-transform duration-300">
       <div class="imgbox relative h-40 overflow-hidden">
         <img class="real-img w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" src="${photo}" alt="${p.name}" onerror="this.closest('.imgbox').classList.add('broken')">
         <div class="img-fallback absolute inset-0 items-center justify-center bg-gradient-to-br ${t.grad}">
@@ -1255,12 +1306,12 @@
       <div class="p-6">
         <h3 class="font-display font-bold text-ink text-lg leading-snug">${p.name}</h3>
         <p class="text-sm text-ink3">${p.spec}</p>
-        <a href="https://wa.me/919972779899?text=${waText}" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 mt-3 text-sm font-semibold text-orange-deep group-hover:gap-2.5 transition-all">
-          Enquire on WhatsApp
+        <span target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 mt-3 text-sm font-semibold text-orange-deep group-hover:gap-2.5 transition-all">
+          Know More
           <span class="msi text-[15px]">arrow_forward</span>
-        </a>
+        </span>
       </div>
-    </div>`;
+    </a>`;
         }
 
         const grid = document.getElementById('productGrid');
@@ -1274,12 +1325,6 @@
             shown = shown >= products.length ? 6 : products.length;
             renderProducts();
             document.getElementById('loadMoreBtn').textContent = shown >= products.length ? 'Show fewer' : 'Load more products';
-        });
-        document.getElementById('viewAllBtn').addEventListener('click', (e) => {
-            e.preventDefault();
-            shown = products.length;
-            renderProducts();
-            document.getElementById('loadMoreBtn').textContent = 'Show fewer';
         });
 
         // ---------- GALLERY (homepage preview, 12 items) ----------
@@ -1449,6 +1494,37 @@
             });
 
             update();
+        })();
+
+        // ---------- LOGO MARQUEE (Who we work with) ----------
+        (function logoMarquee() {
+            const track = document.getElementById('logoMarqueeTrack');
+            const wrap = document.getElementById('logoMarquee');
+            if (!track || !wrap || typeof gsap === 'undefined') return;
+ 
+            const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (prefersReduced) return;
+ 
+            let tween;
+ 
+            function buildTween() {
+                // half the track width = one full set of (non-duplicated) logos
+                const halfWidth = track.scrollWidth / 2;
+                if (tween) tween.kill();
+                gsap.set(track, { x: 0 });
+                tween = gsap.to(track, {
+                    x: -halfWidth,
+                    duration: halfWidth / 40, // constant px/sec speed regardless of screen size
+                    ease: 'none',
+                    repeat: -1,
+                });
+            }
+ 
+            buildTween();
+            window.addEventListener('resize', () => buildTween());
+ 
+            wrap.addEventListener('mouseenter', () => tween && tween.pause());
+            wrap.addEventListener('mouseleave', () => tween && tween.resume());
         })();
 
         // ---------- FAQ ACCORDION ----------
